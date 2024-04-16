@@ -71,7 +71,68 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'linkPagamento',
               ParamType.String,
             ),
+            valor: params.getParam(
+              'valor',
+              ParamType.String,
+            ),
+            destinatario: params.getParam(
+              'destinatario',
+              ParamType.String,
+            ),
+            data: params.getParam(
+              'data',
+              ParamType.String,
+            ),
+            modelo: params.getParam(
+              'modelo',
+              ParamType.String,
+            ),
           ),
+        ),
+        FFRoute(
+          name: 'Comprovante',
+          path: '/comprovante',
+          builder: (context, params) => NavBarPage(
+            initialPage: '',
+            page: ComprovanteWidget(
+              linkPagamento: params.getParam(
+                'linkPagamento',
+                ParamType.String,
+              ),
+              valor: params.getParam(
+                'valor',
+                ParamType.String,
+              ),
+              destinatario: params.getParam(
+                'destinatario',
+                ParamType.String,
+              ),
+              data: params.getParam(
+                'data',
+                ParamType.String,
+              ),
+              modelo: params.getParam(
+                'modelo',
+                ParamType.String,
+              ),
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'PerfilPage',
+          path: '/perfilPage',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'PerfilPage')
+              : PerfilPageWidget(
+                  valor: params.getParam(
+                    'valor',
+                    ParamType.String,
+                  ),
+                  empresa: params.getParam(
+                    'empresa',
+                    ParamType.String,
+                  ),
+                ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

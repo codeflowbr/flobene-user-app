@@ -98,7 +98,7 @@ class _CardSaldoWidgetState extends State<CardSaldoWidget> {
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                 child: Text(
-                  'R\$',
+                  'R\$ ',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Readex Pro',
                         fontSize: 20.0,

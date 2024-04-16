@@ -58,9 +58,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           child: Container(
             width: MediaQuery.sizeOf(context).width * 1.0,
             height: MediaQuery.sizeOf(context).height * 1.0,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-            ),
+            decoration: const BoxDecoration(),
             child: Padding(
               padding: const EdgeInsets.all(26.0),
               child: Column(
@@ -77,6 +75,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               color: FlutterFlowTheme.of(context).secondaryText,
                               fontSize: 24.0,
                               letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
                             ),
                         minFontSize: 24.0,
                       ),
@@ -87,6 +86,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               color: FlutterFlowTheme.of(context).secondaryText,
                               fontSize: 24.0,
                               letterSpacing: 0.0,
+                              fontWeight: FontWeight.bold,
                             ),
                         minFontSize: 24.0,
                       ),
@@ -162,23 +162,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ParamType.String,
                               ),
                             }.withoutNulls,
-                          );
-                        } else {
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                title: const Text('QRCode não encontrado'),
-                                content: const Text('Erro ao encontrar QRCode'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: const Text('Ok'),
-                                  ),
-                                ],
-                              );
-                            },
                           );
                         }
 

@@ -4,11 +4,11 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'pagamento_model.dart';
-export 'pagamento_model.dart';
+import 'comprovante_model.dart';
+export 'comprovante_model.dart';
 
-class PagamentoWidget extends StatefulWidget {
-  const PagamentoWidget({
+class ComprovanteWidget extends StatefulWidget {
+  const ComprovanteWidget({
     super.key,
     this.linkPagamento,
     String? valor,
@@ -24,18 +24,18 @@ class PagamentoWidget extends StatefulWidget {
   final String? modelo;
 
   @override
-  State<PagamentoWidget> createState() => _PagamentoWidgetState();
+  State<ComprovanteWidget> createState() => _ComprovanteWidgetState();
 }
 
-class _PagamentoWidgetState extends State<PagamentoWidget> {
-  late PagamentoModel _model;
+class _ComprovanteWidgetState extends State<ComprovanteWidget> {
+  late ComprovanteModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => PagamentoModel());
+    _model = createModel(context, () => ComprovanteModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -74,7 +74,7 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
-                          'Transferindo',
+                          'Transferência Realizada',
                           style:
                               FlutterFlowTheme.of(context).labelLarge.override(
                                     fontFamily: 'Readex Pro',
@@ -157,129 +157,35 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                     Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 64.0, 0.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Local',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 20.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 48.0, 0.0),
-                            child: Text(
-                              valueOrDefault<String>(
-                                widget.destinatario,
-                                'Irani Parque Verde',
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                      child: FFButtonWidget(
+                        onPressed: () {
+                          print('Button pressed ...');
+                        },
+                        text: 'Enviar Comprovante',
+                        icon: const Icon(
+                          Icons.file_copy,
+                          size: 15.0,
+                        ),
+                        options: FFButtonOptions(
+                          width: double.infinity,
+                          height: 40.0,
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 24.0, 0.0),
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          textStyle:
+                              FlutterFlowTheme.of(context).labelLarge.override(
                                     fontFamily: 'Readex Pro',
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
-                                    fontSize: 20.0,
                                     letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
                                   ),
-                            ),
+                          elevation: 3.0,
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).primary,
+                            width: 1.0,
                           ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Data',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 20.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 48.0, 0.0),
-                            child: Text(
-                              valueOrDefault<String>(
-                                widget.data,
-                                '24/12/2001',
-                              ),
-                              textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
-                                    fontSize: 20.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Modelo',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 20.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 48.0, 0.0),
-                            child: Text(
-                              valueOrDefault<String>(
-                                widget.modelo,
-                                'Alimentação',
-                              ),
-                              textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
-                                    fontSize: 20.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ),
-                        ],
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
                     ),
                   ],
@@ -290,10 +196,10 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 48.0),
                       child: FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
+                        onPressed: () async {
+                          context.pushNamed('HomePage');
                         },
                         text: 'Confirmar',
                         options: FFButtonOptions(
@@ -313,37 +219,6 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                           elevation: 3.0,
                           borderSide: const BorderSide(
                             color: Colors.transparent,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 48.0),
-                      child: FFButtonWidget(
-                        onPressed: () async {
-                          context.pushNamed('HomePage');
-                        },
-                        text: 'Cancelar',
-                        options: FFButtonOptions(
-                          width: double.infinity,
-                          height: 40.0,
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              24.0, 0.0, 24.0, 0.0),
-                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).primaryBackground,
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Readex Pro',
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    letterSpacing: 0.0,
-                                  ),
-                          elevation: 3.0,
-                          borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).primary,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(8.0),

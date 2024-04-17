@@ -113,7 +113,7 @@ class _PerfilPageWidgetState extends State<PerfilPageWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 250.0, 0.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 200.0, 0.0, 0.0),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       height: MediaQuery.sizeOf(context).height * 0.06,

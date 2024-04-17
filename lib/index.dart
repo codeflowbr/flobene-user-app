@@ -6,3 +6,4 @@ export '/pages/extrato/extrato_widget.dart' show ExtratoWidget;
 export '/pages/pagamento/pagamento_widget.dart' show PagamentoWidget;
 export '/pages/comprovante/comprovante_widget.dart' show ComprovanteWidget;
 export '/pages/perfil_page/perfil_page_widget.dart' show PerfilPageWidget;
+export '/login/login_widget.dart' show LoginWidget;

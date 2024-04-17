@@ -280,6 +280,9 @@ class _LoginWidgetState extends State<LoginWidget>
                                             .bodyLarge
                                             .override(
                                               fontFamily: 'Readex Pro',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
                                               letterSpacing: 0.0,
                                             ),
                                         keyboardType:
@@ -379,6 +382,9 @@ class _LoginWidgetState extends State<LoginWidget>
                                             .bodyLarge
                                             .override(
                                               fontFamily: 'Readex Pro',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
                                               letterSpacing: 0.0,
                                             ),
                                         validator: _model
@@ -435,7 +441,6 @@ class _LoginWidgetState extends State<LoginWidget>
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         var shouldSetState = false;
-                                        Function() navigate = () {};
                                         _model.authResponse =
                                             await JwttokenCall.call();
                                         shouldSetState = true;
@@ -466,9 +471,9 @@ class _LoginWidgetState extends State<LoginWidget>
                                               ).toString(),
                                               userData: UserStruct(),
                                             );
-                                            navigate = () =>
-                                                context.goNamedAuth('HomePage',
-                                                    context.mounted);
+
+                                            context.pushNamedAuth(
+                                                'HomePage', context.mounted);
                                           } else {
                                             await showDialog(
                                               context: context,
@@ -517,7 +522,6 @@ class _LoginWidgetState extends State<LoginWidget>
                                           return;
                                         }
 
-                                        navigate();
                                         if (shouldSetState) setState(() {});
                                       },
                                       text: 'Entrar',

@@ -3,8 +3,8 @@ import 'package:rxdart/rxdart.dart';
 import '/backend/schema/structs/index.dart';
 import 'custom_auth_manager.dart';
 
-class FlowbeneAuthUser {
-  FlowbeneAuthUser({
+class PilaBeneficiosAuthUser {
+  PilaBeneficiosAuthUser({
     required this.loggedIn,
     this.uid,
     this.userData,
@@ -16,8 +16,9 @@ class FlowbeneAuthUser {
 }
 
 /// Generates a stream of the authenticated user.
-BehaviorSubject<FlowbeneAuthUser> flowbeneAuthUserSubject =
-    BehaviorSubject.seeded(FlowbeneAuthUser(loggedIn: false));
-Stream<FlowbeneAuthUser> flowbeneAuthUserStream() => flowbeneAuthUserSubject
-    .asBroadcastStream()
-    .map((user) => currentUser = user);
+BehaviorSubject<PilaBeneficiosAuthUser> pilaBeneficiosAuthUserSubject =
+    BehaviorSubject.seeded(PilaBeneficiosAuthUser(loggedIn: false));
+Stream<PilaBeneficiosAuthUser> pilaBeneficiosAuthUserStream() =>
+    pilaBeneficiosAuthUserSubject
+        .asBroadcastStream()
+        .map((user) => currentUser = user);

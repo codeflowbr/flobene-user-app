@@ -31,13 +31,13 @@ class CustomAuthManager {
     uid = null;
     userData = null;
     // Update the current user.
-    flowbeneAuthUserSubject.add(
-      FlowbeneAuthUser(loggedIn: false),
+    pilaBeneficiosAuthUserSubject.add(
+      PilaBeneficiosAuthUser(loggedIn: false),
     );
     persistAuthData();
   }
 
-  Future<FlowbeneAuthUser?> signIn({
+  Future<PilaBeneficiosAuthUser?> signIn({
     String? authenticationToken,
     String? refreshToken,
     DateTime? tokenExpiration,
@@ -73,7 +73,7 @@ class CustomAuthManager {
     );
   }
 
-  FlowbeneAuthUser? _updateCurrentUser({
+  PilaBeneficiosAuthUser? _updateCurrentUser({
     String? authenticationToken,
     String? refreshToken,
     DateTime? tokenExpiration,
@@ -86,12 +86,12 @@ class CustomAuthManager {
     uid = authUid;
     this.userData = userData;
     // Update the current user stream.
-    final updatedUser = FlowbeneAuthUser(
+    final updatedUser = PilaBeneficiosAuthUser(
       loggedIn: true,
       uid: authUid,
       userData: userData,
     );
-    flowbeneAuthUserSubject.add(updatedUser);
+    pilaBeneficiosAuthUserSubject.add(updatedUser);
     persistAuthData();
     return updatedUser;
   }
@@ -124,12 +124,12 @@ class CustomAuthManager {
     final authTokenExists = authenticationToken != null;
     final tokenExpired =
         tokenExpiration != null && tokenExpiration!.isBefore(DateTime.now());
-    final updatedUser = FlowbeneAuthUser(
+    final updatedUser = PilaBeneficiosAuthUser(
       loggedIn: authTokenExists && !tokenExpired,
       uid: uid,
       userData: userData,
     );
-    flowbeneAuthUserSubject.add(updatedUser);
+    pilaBeneficiosAuthUserSubject.add(updatedUser);
   }
 
   void persistAuthData() {
@@ -151,5 +151,5 @@ class CustomAuthManager {
   }
 }
 
-FlowbeneAuthUser? currentUser;
+PilaBeneficiosAuthUser? currentUser;
 bool get loggedIn => currentUser?.loggedIn ?? false;

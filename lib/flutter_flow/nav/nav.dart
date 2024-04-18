@@ -23,8 +23,8 @@ class AppStateNotifier extends ChangeNotifier {
   static AppStateNotifier? _instance;
   static AppStateNotifier get instance => _instance ??= AppStateNotifier._();
 
-  FlowbeneAuthUser? initialUser;
-  FlowbeneAuthUser? user;
+  PilaBeneficiosAuthUser? initialUser;
+  PilaBeneficiosAuthUser? user;
   bool showSplashImage = true;
   String? _redirectLocation;
 
@@ -49,7 +49,7 @@ class AppStateNotifier extends ChangeNotifier {
   /// to perform subsequent actions (such as navigation) afterwards.
   void updateNotifyOnAuthChange(bool notify) => notifyOnAuthChange = notify;
 
-  void update(FlowbeneAuthUser newUser) {
+  void update(PilaBeneficiosAuthUser newUser) {
     final shouldUpdate =
         user?.uid == null || newUser.uid == null || user?.uid != newUser.uid;
     initialUser ??= newUser;
@@ -184,6 +184,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'login',
           path: '/login',
           builder: (context, params) => const LoginWidget(),
+        ),
+        FFRoute(
+          name: 'TermosDeUso',
+          path: '/termosDeUso',
+          builder: (context, params) => const TermosDeUsoWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

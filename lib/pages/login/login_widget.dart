@@ -306,7 +306,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                         autofillHints: const [AutofillHints.password],
                                         obscureText: !_model.passwordVisibility,
                                         decoration: InputDecoration(
-                                          labelText: 'Password',
+                                          labelText: 'Senha',
                                           labelStyle:
                                               FlutterFlowTheme.of(context)
                                                   .labelLarge

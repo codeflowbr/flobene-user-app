@@ -77,7 +77,7 @@ class _ComprovanteWidgetState extends State<ComprovanteWidget> {
                           'Transferência Realizada',
                           style:
                               FlutterFlowTheme.of(context).labelLarge.override(
-                                    fontFamily: 'Readex Pro',
+                                    fontFamily: 'Roboto',
                                     fontSize: 24.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
@@ -96,7 +96,7 @@ class _ComprovanteWidgetState extends State<ComprovanteWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).secondary,
                                   fontSize: 32.0,
                                   letterSpacing: 0.0,
@@ -108,7 +108,7 @@ class _ComprovanteWidgetState extends State<ComprovanteWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).secondary,
                                   fontSize: 32.0,
                                   letterSpacing: 0.0,
@@ -129,7 +129,7 @@ class _ComprovanteWidgetState extends State<ComprovanteWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).primary,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
@@ -144,7 +144,7 @@ class _ComprovanteWidgetState extends State<ComprovanteWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).primary,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
@@ -176,7 +176,7 @@ class _ComprovanteWidgetState extends State<ComprovanteWidget> {
                           color: FlutterFlowTheme.of(context).primaryText,
                           textStyle:
                               FlutterFlowTheme.of(context).labelLarge.override(
-                                    fontFamily: 'Readex Pro',
+                                    fontFamily: 'Roboto',
                                     letterSpacing: 0.0,
                                   ),
                           elevation: 3.0,
@@ -212,7 +212,7 @@ class _ComprovanteWidgetState extends State<ComprovanteWidget> {
                           color: FlutterFlowTheme.of(context).secondary,
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Readex Pro',
+                                    fontFamily: 'Roboto',
                                     color: Colors.white,
                                     letterSpacing: 0.0,
                                   ),

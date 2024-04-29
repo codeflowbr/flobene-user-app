@@ -8,3 +8,5 @@ export '/pages/comprovante/comprovante_widget.dart' show ComprovanteWidget;
 export '/pages/perfil_page/perfil_page_widget.dart' show PerfilPageWidget;
 export '/pages/login/login_widget.dart' show LoginWidget;
 export '/pages/termos_de_uso/termos_de_uso_widget.dart' show TermosDeUsoWidget;
+export '/pages/cadastro_lojista/cadastro_lojista_widget.dart'
+    show CadastroLojistaWidget;

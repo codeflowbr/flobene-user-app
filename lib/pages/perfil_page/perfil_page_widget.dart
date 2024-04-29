@@ -36,6 +36,10 @@ class _PerfilPageWidgetState extends State<PerfilPageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockOrientation();
+      setState(() {
+        _model.nome = currentUserData!.displayName;
+        _model.empresa = currentUserData!.empresaName;
+      });
     });
   }
 
@@ -72,7 +76,7 @@ class _PerfilPageWidgetState extends State<PerfilPageWidget> {
                       AutoSizeText(
                         'Olá ',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
+                              fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context).secondaryText,
                               fontSize: 24.0,
                               letterSpacing: 0.0,
@@ -83,7 +87,7 @@ class _PerfilPageWidgetState extends State<PerfilPageWidget> {
                       AutoSizeText(
                         _model.nome,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
+                              fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context).secondaryText,
                               fontSize: 24.0,
                               letterSpacing: 0.0,
@@ -97,12 +101,9 @@ class _PerfilPageWidgetState extends State<PerfilPageWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       AutoSizeText(
-                        valueOrDefault<String>(
-                          widget.empresa,
-                          'Codeflow',
-                        ),
+                        _model.empresa,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
+                              fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context).secondary,
                               fontSize: 16.0,
                               letterSpacing: 0.0,
@@ -115,57 +116,66 @@ class _PerfilPageWidgetState extends State<PerfilPageWidget> {
                   Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(0.0, 200.0, 0.0, 0.0),
-                    child: Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: MediaQuery.sizeOf(context).height * 0.06,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        borderRadius: BorderRadius.circular(8.0),
-                        shape: BoxShape.rectangle,
-                        border: Border.all(
-                          color: FlutterFlowTheme.of(context).primary,
-                          width: 1.0,
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        context.pushNamed('TermosDeUso');
+                      },
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: MediaQuery.sizeOf(context).height * 0.06,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          borderRadius: BorderRadius.circular(8.0),
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).primary,
+                            width: 1.0,
+                          ),
                         ),
-                      ),
-                      child: Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 0.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Icon(
-                              Icons.list_alt,
-                              color: FlutterFlowTheme.of(context).primary,
-                              size: 24.0,
-                            ),
-                            Expanded(
-                              child: Container(
-                                decoration: const BoxDecoration(),
-                                child: Text(
-                                  'Termos de uso',
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 30.0, 0.0),
-                              child: Icon(
-                                Icons.arrow_forward_ios,
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              20.0, 0.0, 0.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Icon(
+                                Icons.list_alt,
                                 color: FlutterFlowTheme.of(context).primary,
                                 size: 24.0,
                               ),
-                            ),
-                          ].divide(const SizedBox(width: 60.0)),
+                              Expanded(
+                                child: Container(
+                                  decoration: const BoxDecoration(),
+                                  child: Text(
+                                    'Termos de uso',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Roboto',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 30.0, 0.0),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  size: 24.0,
+                                ),
+                              ),
+                            ].divide(const SizedBox(width: 60.0)),
+                          ),
                         ),
                       ),
                     ),
@@ -205,7 +215,7 @@ class _PerfilPageWidgetState extends State<PerfilPageWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        fontFamily: 'Roboto',
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
                                         letterSpacing: 0.0,
@@ -263,7 +273,7 @@ class _PerfilPageWidgetState extends State<PerfilPageWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        fontFamily: 'Roboto',
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
                                         letterSpacing: 0.0,
@@ -321,7 +331,7 @@ class _PerfilPageWidgetState extends State<PerfilPageWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        fontFamily: 'Roboto',
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
                                         letterSpacing: 0.0,
@@ -391,7 +401,7 @@ class _PerfilPageWidgetState extends State<PerfilPageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Readex Pro',
+                                          fontFamily: 'Roboto',
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
                                           letterSpacing: 0.0,

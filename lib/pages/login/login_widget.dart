@@ -180,7 +180,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                             style: FlutterFlowTheme.of(context)
                                                 .displaySmall
                                                 .override(
-                                                  fontFamily: 'Outfit',
+                                                  fontFamily: 'Inter',
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primary,
@@ -199,7 +199,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .displaySmall
                                             .override(
-                                              fontFamily: 'Outfit',
+                                              fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primary,
@@ -227,7 +227,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                               FlutterFlowTheme.of(context)
                                                   .labelLarge
                                                   .override(
-                                                    fontFamily: 'Readex Pro',
+                                                    fontFamily: 'Roboto',
                                                     letterSpacing: 0.0,
                                                   ),
                                           enabledBorder: OutlineInputBorder(
@@ -279,7 +279,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              fontFamily: 'Roboto',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primary,
@@ -311,7 +311,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                               FlutterFlowTheme.of(context)
                                                   .labelLarge
                                                   .override(
-                                                    fontFamily: 'Readex Pro',
+                                                    fontFamily: 'Roboto',
                                                     letterSpacing: 0.0,
                                                   ),
                                           enabledBorder: OutlineInputBorder(
@@ -381,7 +381,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              fontFamily: 'Roboto',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primary,
@@ -415,8 +415,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                                           context)
                                                       .labelMedium
                                                       .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
+                                                        fontFamily: 'Roboto',
                                                         letterSpacing: 0.0,
                                                       ),
                                                 )
@@ -425,8 +424,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
+                                                        fontFamily: 'Roboto',
                                                         letterSpacing: 0.0,
                                                       ),
                                             ),
@@ -440,39 +438,60 @@ class _LoginWidgetState extends State<LoginWidget>
                                         0.0, 0.0, 0.0, 16.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        var shouldSetState = false;
-                                        _model.authResponse =
-                                            await JwttokenCall.call();
-                                        shouldSetState = true;
-                                        if ((_model.authResponse?.succeeded ??
+                                        _model.usuario = await LoginCall.call(
+                                          login: _model
+                                              .emailAddressTextController.text,
+                                          password: _model
+                                              .passwordTextController.text,
+                                        );
+                                        if ((_model.usuario?.succeeded ??
                                             true)) {
-                                          _model.usuario = await LoginCall.call(
-                                            jwt: JwttokenCall.jwt(
-                                              (_model.authResponse?.jsonBody ??
-                                                  ''),
-                                            ),
-                                            login: _model
-                                                .emailAddressTextController
-                                                .text,
-                                            password: _model
-                                                .passwordTextController.text,
-                                          );
-                                          shouldSetState = true;
-                                          if ((_model.usuario?.succeeded ??
-                                              true)) {
+                                          if (LoginCall.role(
+                                                (_model.usuario?.jsonBody ??
+                                                    ''),
+                                              ) ==
+                                              'CLIENTE') {
                                             GoRouter.of(context)
                                                 .prepareAuthEvent();
                                             await authManager.signIn(
-                                              authenticationToken: getJsonField(
-                                                (_model.authResponse
-                                                        ?.jsonBody ??
+                                              authenticationToken:
+                                                  LoginCall.authToken(
+                                                (_model.usuario?.jsonBody ??
                                                     ''),
-                                                r'''$.authToken''',
-                                              ).toString(),
-                                              userData: UserStruct(),
+                                              ),
+                                              authUid: LoginCall.id(
+                                                (_model.usuario?.jsonBody ??
+                                                    ''),
+                                              )?.toString(),
+                                              userData: UserStruct(
+                                                displayName:
+                                                    LoginCall.peopleName(
+                                                  (_model.usuario?.jsonBody ??
+                                                      ''),
+                                                ),
+                                                walletId: getJsonField(
+                                                  (_model.usuario?.jsonBody ??
+                                                      ''),
+                                                  r'''$.wallet.id''',
+                                                ).toString(),
+                                                uid: LoginCall.id(
+                                                  (_model.usuario?.jsonBody ??
+                                                      ''),
+                                                )?.toString(),
+                                                empresaName: getJsonField(
+                                                  (_model.usuario?.jsonBody ??
+                                                      ''),
+                                                  r'''$.people.company.fantasyName''',
+                                                ).toString(),
+                                                idempresa: getJsonField(
+                                                  (_model.usuario?.jsonBody ??
+                                                      ''),
+                                                  r'''$.people.company.id''',
+                                                ).toString(),
+                                              ),
                                             );
 
-                                            context.pushNamedAuth(
+                                            context.goNamedAuth(
                                                 'HomePage', context.mounted);
                                           } else {
                                             await showDialog(
@@ -482,7 +501,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                                   title: const Text(
                                                       'Erro ao realizar login'),
                                                   content: const Text(
-                                                      'Login ou senha incorretos'),
+                                                      'Usuário não é Funcionario'),
                                                   actions: [
                                                     TextButton(
                                                       onPressed: () =>
@@ -495,18 +514,15 @@ class _LoginWidgetState extends State<LoginWidget>
                                               },
                                             );
                                           }
-
-                                          if (shouldSetState) setState(() {});
-                                          return;
                                         } else {
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {
                                               return AlertDialog(
-                                                title:
-                                                    const Text('Erro ao buscar JWT'),
+                                                title: const Text(
+                                                    'Erro ao realizar login'),
                                                 content: const Text(
-                                                    'Entre em contato com um administrador do sistema'),
+                                                    'Login ou senha incorretos'),
                                                 actions: [
                                                   TextButton(
                                                     onPressed: () =>
@@ -518,11 +534,9 @@ class _LoginWidgetState extends State<LoginWidget>
                                               );
                                             },
                                           );
-                                          if (shouldSetState) setState(() {});
-                                          return;
                                         }
 
-                                        if (shouldSetState) setState(() {});
+                                        setState(() {});
                                       },
                                       text: 'Entrar',
                                       options: FFButtonOptions(
@@ -538,7 +552,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                         textStyle: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
-                                              fontFamily: 'Readex Pro',
+                                              fontFamily: 'Roboto',
                                               color: Colors.white,
                                               letterSpacing: 0.0,
                                             ),
@@ -551,6 +565,53 @@ class _LoginWidgetState extends State<LoginWidget>
                                             BorderRadius.circular(12.0),
                                       ),
                                     ),
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      // You will have to add an action on this rich text to go to your login page.
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 16.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context
+                                                .pushNamed('cadastroLojista');
+                                          },
+                                          child: RichText(
+                                            textScaler: MediaQuery.of(context)
+                                                .textScaler,
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: 'Cadastro Lojista',
+                                                  style: TextStyle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                )
+                                              ],
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Roboto',
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w900,
+                                                      ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),

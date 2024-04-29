@@ -154,7 +154,7 @@ class _CardLocationWidgetState extends State<CardLocationWidget>
                               style: FlutterFlowTheme.of(context)
                                   .titleMedium
                                   .override(
-                                    fontFamily: 'Readex Pro',
+                                    fontFamily: 'Roboto',
                                     color: Colors.white,
                                     letterSpacing: 0.0,
                                   ),
@@ -174,7 +174,7 @@ class _CardLocationWidgetState extends State<CardLocationWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      fontFamily: 'Roboto',
                                       fontSize: 13.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
@@ -192,7 +192,7 @@ class _CardLocationWidgetState extends State<CardLocationWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        fontFamily: 'Roboto',
                                         fontSize: 13.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
@@ -210,7 +210,7 @@ class _CardLocationWidgetState extends State<CardLocationWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      fontFamily: 'Roboto',
                                       fontSize: 13.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
@@ -227,7 +227,7 @@ class _CardLocationWidgetState extends State<CardLocationWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        fontFamily: 'Roboto',
                                         fontSize: 13.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
@@ -245,7 +245,7 @@ class _CardLocationWidgetState extends State<CardLocationWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      fontFamily: 'Roboto',
                                       fontSize: 13.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
@@ -262,7 +262,7 @@ class _CardLocationWidgetState extends State<CardLocationWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        fontFamily: 'Roboto',
                                         fontSize: 13.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
@@ -280,7 +280,7 @@ class _CardLocationWidgetState extends State<CardLocationWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      fontFamily: 'Roboto',
                                       fontSize: 13.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
@@ -297,7 +297,7 @@ class _CardLocationWidgetState extends State<CardLocationWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        fontFamily: 'Roboto',
                                         fontSize: 13.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
@@ -315,7 +315,7 @@ class _CardLocationWidgetState extends State<CardLocationWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      fontFamily: 'Roboto',
                                       fontSize: 13.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
@@ -332,7 +332,7 @@ class _CardLocationWidgetState extends State<CardLocationWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Readex Pro',
+                                        fontFamily: 'Roboto',
                                         fontSize: 13.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
@@ -368,7 +368,7 @@ class _CardLocationWidgetState extends State<CardLocationWidget>
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Readex Pro',
+                                    fontFamily: 'Roboto',
                                     color: Colors.white,
                                     fontSize: 13.0,
                                     letterSpacing: 0.0,

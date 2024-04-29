@@ -1,3 +1,5 @@
+import '/auth/custom_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/components/card_saldo/card_saldo_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -11,12 +13,7 @@ import 'home_page_model.dart';
 export 'home_page_model.dart';
 
 class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({
-    super.key,
-    String? valor,
-  }) : valor = valor ?? '0,00';
-
-  final String valor;
+  const HomePageWidget({super.key});
 
   @override
   State<HomePageWidget> createState() => _HomePageWidgetState();
@@ -35,6 +32,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockOrientation();
+      _model.apiResult4oe = await BuscarAccountIdCall.call(
+        jwt: currentAuthenticationToken,
+        accountId: currentUserData?.uid,
+      );
+      if ((_model.apiResult4oe?.succeeded ?? true)) {
+        setState(() {
+          _model.nome = BuscarAccountIdCall.peopleName(
+            (_model.apiResult4oe?.jsonBody ?? ''),
+          )!;
+          _model.valorali = BuscarAccountIdCall.balanceAli(
+            (_model.apiResult4oe?.jsonBody ?? ''),
+          )!
+              .toString();
+          _model.valorRef = BuscarAccountIdCall.balanceRef(
+            (_model.apiResult4oe?.jsonBody ?? ''),
+          )!
+              .toString();
+        });
+      }
     });
   }
 
@@ -71,7 +87,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       AutoSizeText(
                         'Olá ',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
+                              fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context).secondaryText,
                               fontSize: 24.0,
                               letterSpacing: 0.0,
@@ -82,7 +98,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       AutoSizeText(
                         _model.nome,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
+                              fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context).secondaryText,
                               fontSize: 24.0,
                               letterSpacing: 0.0,
@@ -104,10 +120,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           updateCallback: () => setState(() {}),
                           child: CardSaldoWidget(
                             nome: 'Alimentação',
-                            valor: valueOrDefault<String>(
-                              widget.valor,
-                              '0,00',
-                            ),
+                            valor: _model.valorali,
                             icon: Icon(
                               Icons.shopping_cart,
                               color: FlutterFlowTheme.of(context).primaryText,
@@ -123,10 +136,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           updateCallback: () => setState(() {}),
                           child: CardSaldoWidget(
                             nome: 'Refeição',
-                            valor: valueOrDefault<String>(
-                              widget.valor,
-                              '0,00',
-                            ),
+                            valor: _model.valorRef,
                             icon: Icon(
                               Icons.restaurant_sharp,
                               color: FlutterFlowTheme.of(context).primaryText,
@@ -196,7 +206,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      fontFamily: 'Roboto',
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w300,
                                     ),
@@ -246,9 +256,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      fontSize: 14.0,
                                       letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w300,
+                                      fontWeight: FontWeight.w500,
                                     ),
                               ),
                             ].divide(const SizedBox(width: 100.0)),
@@ -296,7 +309,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      fontFamily: 'Roboto',
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w300,
                                     ),

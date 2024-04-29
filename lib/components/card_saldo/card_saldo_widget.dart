@@ -85,7 +85,7 @@ class _CardSaldoWidgetState extends State<CardSaldoWidget> {
                     'refeição',
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'Roboto',
                         letterSpacing: 0.0,
                       ),
                 ),
@@ -100,7 +100,7 @@ class _CardSaldoWidgetState extends State<CardSaldoWidget> {
                 child: Text(
                   'R\$ ',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
+                        fontFamily: 'Roboto',
                         fontSize: 20.0,
                         letterSpacing: 0.0,
                       ),
@@ -112,7 +112,7 @@ class _CardSaldoWidgetState extends State<CardSaldoWidget> {
                   '100,00',
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Readex Pro',
+                      fontFamily: 'Roboto',
                       fontSize: 20.0,
                       letterSpacing: 0.0,
                     ),

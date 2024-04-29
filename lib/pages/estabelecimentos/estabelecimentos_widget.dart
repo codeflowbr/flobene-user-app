@@ -67,7 +67,7 @@ class _EstabelecimentosWidgetState extends State<EstabelecimentosWidget> {
                       child: Text(
                         'Estabelecimentos',
                         style: FlutterFlowTheme.of(context).labelLarge.override(
-                              fontFamily: 'Readex Pro',
+                              fontFamily: 'Roboto',
                               fontSize: 24.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
@@ -98,7 +98,7 @@ class _EstabelecimentosWidgetState extends State<EstabelecimentosWidget> {
                         onSelected: onSelected,
                         textStyle:
                             FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'Roboto',
                                   letterSpacing: 0.0,
                                 ),
                         textHighlightStyle: const TextStyle(),
@@ -136,14 +136,14 @@ class _EstabelecimentosWidgetState extends State<EstabelecimentosWidget> {
                           labelStyle: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
-                                fontFamily: 'Readex Pro',
+                                fontFamily: 'Roboto',
                                 color: FlutterFlowTheme.of(context).secondary,
                                 fontSize: 16.0,
                                 letterSpacing: 0.0,
                               ),
                           hintStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Readex Pro',
+                                    fontFamily: 'Roboto',
                                     letterSpacing: 0.0,
                                   ),
                           enabledBorder: OutlineInputBorder(
@@ -186,7 +186,7 @@ class _EstabelecimentosWidgetState extends State<EstabelecimentosWidget> {
                           ),
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
+                              fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context).secondary,
                               fontSize: 16.0,
                               letterSpacing: 0.0,

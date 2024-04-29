@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 class PerfilPageModel extends FlutterFlowModel<PerfilPageWidget> {
   ///  Local state fields for this page.
 
-  String nome = 'Patrick';
+  String nome = 'nome';
+
+  String empresa = 'empresa';
 
   ///  State fields for stateful widgets in this page.
 

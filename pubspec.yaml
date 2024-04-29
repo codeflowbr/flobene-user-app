@@ -29,6 +29,7 @@ dependencies:
   cached_network_image: 3.3.1
   carousel_slider: 4.2.1
   collection: 1.18.0
+  easy_debounce: 2.0.1
   equatable: 2.0.5
   floating_bottom_navigation_bar: 1.5.2
   flutter_animate: 4.1.1+1
@@ -48,12 +49,14 @@ dependencies:
   http: 1.2.0
   intl: 0.18.1
   json_path: 0.6.2
+  mask_text_input_formatter: 2.4.0
   mime_type: 1.0.0
   page_transition: 2.1.0
   path_provider: 2.0.14
   path_provider_android: 2.0.25
   path_provider_foundation: 2.2.2
   path_provider_platform_interface: 2.0.6
+  pin_code_fields: 8.0.1
   provider: 6.0.5
   shared_preferences: 2.2.2
   shared_preferences_android: 2.2.1

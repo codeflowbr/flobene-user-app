@@ -40,6 +40,9 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockOrientation();
+      setState(() {
+        _model.valor = widget.linkPagamento;
+      });
     });
   }
 
@@ -77,7 +80,7 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                           'Transferindo',
                           style:
                               FlutterFlowTheme.of(context).labelLarge.override(
-                                    fontFamily: 'Readex Pro',
+                                    fontFamily: 'Roboto',
                                     fontSize: 24.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
@@ -96,7 +99,7 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).secondary,
                                   fontSize: 32.0,
                                   letterSpacing: 0.0,
@@ -108,7 +111,7 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).secondary,
                                   fontSize: 32.0,
                                   letterSpacing: 0.0,
@@ -129,7 +132,7 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).primary,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
@@ -144,7 +147,7 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).primary,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
@@ -166,32 +169,27 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).primary,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
                                 ),
                           ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 48.0, 0.0),
-                            child: Text(
-                              valueOrDefault<String>(
-                                widget.destinatario,
-                                'Irani Parque Verde',
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
-                                    fontSize: 20.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                          Text(
+                            valueOrDefault<String>(
+                              widget.destinatario,
+                              'Irani Parque Verde',
                             ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Roboto',
+                                  color: FlutterFlowTheme.of(context).secondary,
+                                  fontSize: 20.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                         ],
                       ),
@@ -208,33 +206,28 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).primary,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
                                 ),
                           ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 48.0, 0.0),
-                            child: Text(
-                              valueOrDefault<String>(
-                                widget.data,
-                                '24/12/2001',
-                              ),
-                              textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
-                                    fontSize: 20.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                          Text(
+                            valueOrDefault<String>(
+                              widget.data,
+                              '24/12/2001',
                             ),
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Roboto',
+                                  color: FlutterFlowTheme.of(context).secondary,
+                                  fontSize: 20.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                         ],
                       ),
@@ -251,33 +244,28 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).primary,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
                                 ),
                           ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 48.0, 0.0),
-                            child: Text(
-                              valueOrDefault<String>(
-                                widget.modelo,
-                                'Alimentação',
-                              ),
-                              textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
-                                    fontSize: 20.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                          Text(
+                            valueOrDefault<String>(
+                              widget.modelo,
+                              'Alimentação',
                             ),
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Roboto',
+                                  color: FlutterFlowTheme.of(context).secondary,
+                                  fontSize: 20.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                         ],
                       ),
@@ -306,7 +294,7 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                           color: FlutterFlowTheme.of(context).secondary,
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Readex Pro',
+                                    fontFamily: 'Roboto',
                                     color: Colors.white,
                                     letterSpacing: 0.0,
                                   ),
@@ -337,7 +325,7 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                           color: FlutterFlowTheme.of(context).primaryBackground,
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Readex Pro',
+                                    fontFamily: 'Roboto',
                                     color: FlutterFlowTheme.of(context).primary,
                                     letterSpacing: 0.0,
                                   ),

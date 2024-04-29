@@ -3,6 +3,10 @@ import 'pagamento_widget.dart' show PagamentoWidget;
 import 'package:flutter/material.dart';
 
 class PagamentoModel extends FlutterFlowModel<PagamentoWidget> {
+  ///  Local state fields for this page.
+
+  String? valor;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

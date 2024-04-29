@@ -101,7 +101,7 @@ class _ExtractTileWidgetState extends State<ExtractTileWidget> {
                   Text(
                     'Compra',
                     style: FlutterFlowTheme.of(context).titleLarge.override(
-                          fontFamily: 'Outfit',
+                          fontFamily: 'Inter',
                           color: FlutterFlowTheme.of(context).blackOlive,
                           fontSize: 14.0,
                           letterSpacing: 0.0,
@@ -111,7 +111,7 @@ class _ExtractTileWidgetState extends State<ExtractTileWidget> {
                   Text(
                     'Alimentação',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'Roboto',
                           color: FlutterFlowTheme.of(context).blackOlive,
                           letterSpacing: 0.0,
                         ),
@@ -119,7 +119,7 @@ class _ExtractTileWidgetState extends State<ExtractTileWidget> {
                   Text(
                     '19:12',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
+                          fontFamily: 'Roboto',
                           color: FlutterFlowTheme.of(context).blackOlive,
                           letterSpacing: 0.0,
                         ),

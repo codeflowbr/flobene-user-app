@@ -1,6 +1,6 @@
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'termos_de_uso_model.dart';
 export 'termos_de_uso_model.dart';
@@ -39,6 +39,36 @@ class _TermosDeUsoWidgetState extends State<TermosDeUsoWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFFF1F4F8),
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 60.0,
+            icon: const Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.white,
+              size: 30.0,
+            ),
+            onPressed: () async {
+              context.pop();
+            },
+          ),
+          title: Text(
+            'Termos de Uso',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'Inter',
+                  color: Colors.white,
+                  fontSize: 22.0,
+                  letterSpacing: 0.0,
+                ),
+          ),
+          actions: const [],
+          centerTitle: true,
+          elevation: 2.0,
+        ),
         body: SafeArea(
           top: true,
           child: SingleChildScrollView(
@@ -123,7 +153,7 @@ class _TermosDeUsoWidgetState extends State<TermosDeUsoWidget> {
                     'Contas',
                     style: FlutterFlowTheme.of(context).titleMedium.override(
                           fontFamily: 'Plus Jakarta Sans',
-                          color: Colors.white,
+                          color: FlutterFlowTheme.of(context).secondary,
                           fontSize: 18.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w600,
@@ -179,7 +209,7 @@ class _TermosDeUsoWidgetState extends State<TermosDeUsoWidget> {
                     'Links Para Outros Sites da Web',
                     style: FlutterFlowTheme.of(context).titleMedium.override(
                           fontFamily: 'Plus Jakarta Sans',
-                          color: Colors.white,
+                          color: FlutterFlowTheme.of(context).secondary,
                           fontSize: 18.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w600,
@@ -235,7 +265,7 @@ class _TermosDeUsoWidgetState extends State<TermosDeUsoWidget> {
                     'Lei Aplicável',
                     style: FlutterFlowTheme.of(context).titleMedium.override(
                           fontFamily: 'Plus Jakarta Sans',
-                          color: Colors.white,
+                          color: FlutterFlowTheme.of(context).secondary,
                           fontSize: 18.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w600,
@@ -268,34 +298,6 @@ class _TermosDeUsoWidgetState extends State<TermosDeUsoWidget> {
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
                         ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 32.0, 16.0, 32.0),
-                  child: FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
-                    },
-                    text: 'Voltar para o Início',
-                    options: FFButtonOptions(
-                      width: double.infinity,
-                      height: 50.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: const Color(0xFF4B986C),
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Plus Jakarta Sans',
-                                color: Colors.white,
-                                fontSize: 18.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                              ),
-                      elevation: 2.0,
-                    ),
                   ),
                 ),
               ],

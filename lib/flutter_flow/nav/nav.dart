@@ -192,6 +192,60 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'cadastroLojista',
           path: '/cadastroLojista',
           builder: (context, params) => const CadastroLojistaWidget(),
+        ),
+        FFRoute(
+          name: 'detailsVR',
+          path: '/detailsVR',
+          builder: (context, params) => const DetailsVRWidget(),
+        ),
+        FFRoute(
+          name: 'Recovery',
+          path: '/recovery',
+          builder: (context, params) => const RecoveryWidget(),
+        ),
+        FFRoute(
+          name: 'AlterarSenha',
+          path: '/alterarSenha',
+          builder: (context, params) => AlterarSenhaWidget(
+            email: params.getParam(
+              'email',
+              ParamType.String,
+            ),
+            pinc: params.getParam(
+              'pinc',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'HomePageLojista',
+          path: '/homePageLojista',
+          builder: (context, params) => const HomePageLojistaWidget(),
+        ),
+        FFRoute(
+          name: 'Receber',
+          path: '/receber',
+          builder: (context, params) => ReceberWidget(
+            contaLojista: params.getParam(
+              'contaLojista',
+              ParamType.JSON,
+            ),
+            listatipovale: params.getParam<String>(
+              'listatipovale',
+              ParamType.String,
+              isList: true,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'Saque',
+          path: '/saque',
+          builder: (context, params) => SaqueWidget(
+            contaLojista: params.getParam(
+              'contaLojista',
+              ParamType.JSON,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -450,4 +504,14 @@ class RootPageContext {
         value: RootPageContext(true, errorRoute),
         child: child,
       );
+}
+
+extension GoRouterLocationExtension on GoRouter {
+  String getCurrentLocation() {
+    final RouteMatch lastMatch = routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : routerDelegate.currentConfiguration;
+    return matchList.uri.toString();
+  }
 }

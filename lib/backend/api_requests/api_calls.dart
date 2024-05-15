@@ -84,6 +84,160 @@ class LoginCall {
       ));
 }
 
+class RecoveryPasswordCall {
+  static Future<ApiCallResponse> call({
+    String? login = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+    "email":"$login"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'recovery password',
+      apiUrl: 'https://codeflowbr.online:8888/api/v1/account/recovery',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static int? id(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.id''',
+      ));
+  static String? email(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.email''',
+      ));
+  static String? role(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.role''',
+      ));
+  static bool? active(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.active''',
+      ));
+  static dynamic people(dynamic response) => getJsonField(
+        response,
+        r'''$.people''',
+      );
+  static dynamic address(dynamic response) => getJsonField(
+        response,
+        r'''$.people.address''',
+      );
+  static dynamic company(dynamic response) => getJsonField(
+        response,
+        r'''$.people.company''',
+      );
+  static dynamic wallet(dynamic response) => getJsonField(
+        response,
+        r'''$.wallet''',
+      );
+  static int? balanceref(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.wallet.balanceRef''',
+      ));
+  static int? balanceali(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.wallet.balanceAli''',
+      ));
+  static String? peopleName(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.people.name''',
+      ));
+  static String? authToken(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.authToken''',
+      ));
+}
+
+class AlterarSenhaCall {
+  static Future<ApiCallResponse> call({
+    String? login = '',
+    String? codigo = '',
+    String? senha = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "email": "$login",
+  "codigo": "$codigo",
+  "newPassword": "$senha"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'alterar senha',
+      apiUrl: 'https://codeflowbr.online:8888/api/v1/account/newpassword',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static int? id(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.id''',
+      ));
+  static String? email(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.email''',
+      ));
+  static String? role(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.role''',
+      ));
+  static bool? active(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.active''',
+      ));
+  static dynamic people(dynamic response) => getJsonField(
+        response,
+        r'''$.people''',
+      );
+  static dynamic address(dynamic response) => getJsonField(
+        response,
+        r'''$.people.address''',
+      );
+  static dynamic company(dynamic response) => getJsonField(
+        response,
+        r'''$.people.company''',
+      );
+  static dynamic wallet(dynamic response) => getJsonField(
+        response,
+        r'''$.wallet''',
+      );
+  static int? balanceref(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.wallet.balanceRef''',
+      ));
+  static int? balanceali(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.wallet.balanceAli''',
+      ));
+  static String? peopleName(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.people.name''',
+      ));
+  static String? authToken(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.authToken''',
+      ));
+}
+
 class BuscarAccountIdCall {
   static Future<ApiCallResponse> call({
     String? accountId = '',
@@ -107,11 +261,13 @@ class BuscarAccountIdCall {
     );
   }
 
-  static int? balanceAli(dynamic response) => castToType<int>(getJsonField(
+  static double? balanceAli(dynamic response) =>
+      castToType<double>(getJsonField(
         response,
         r'''$.wallet.balanceAli''',
       ));
-  static int? balanceRef(dynamic response) => castToType<int>(getJsonField(
+  static double? balanceRef(dynamic response) =>
+      castToType<double>(getJsonField(
         response,
         r'''$.wallet.balanceRef''',
       ));
@@ -207,6 +363,7 @@ class CadastroLojistaCall {
     "fantasyName": "$fantasyName",
     "cnpj": "$cnpj",
     "phone": "$phone",
+   "active": true,
     "address": {
       "street": "$rua",
       "number": "$numero",

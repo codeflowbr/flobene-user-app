@@ -63,7 +63,7 @@ class _CardSaldoWidgetState extends State<CardSaldoWidget> {
         borderRadius: BorderRadius.circular(5.0),
         shape: BoxShape.rectangle,
         border: Border.all(
-          color: const Color(0xFF989696),
+          color: FlutterFlowTheme.of(context).primary,
           width: 1.0,
         ),
       ),
@@ -98,24 +98,16 @@ class _CardSaldoWidgetState extends State<CardSaldoWidget> {
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                 child: Text(
-                  'R\$ ',
+                  valueOrDefault<String>(
+                    widget.valor,
+                    '100,00',
+                  ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
                         fontSize: 20.0,
                         letterSpacing: 0.0,
                       ),
                 ),
-              ),
-              Text(
-                valueOrDefault<String>(
-                  widget.valor,
-                  '100,00',
-                ),
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Roboto',
-                      fontSize: 20.0,
-                      letterSpacing: 0.0,
-                    ),
               ),
             ],
           ),

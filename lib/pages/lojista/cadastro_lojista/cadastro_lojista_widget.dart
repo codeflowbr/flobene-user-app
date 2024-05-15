@@ -1754,10 +1754,114 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                                               .asValidator(context),
                                         ),
                                       ),
-                                      const Icon(
-                                        Icons.calendar_month,
-                                        color: Color(0xFF1D7804),
-                                        size: 50.0,
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            2.0, 2.0, 2.0, 2.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6.0),
+                                            shape: BoxShape.rectangle,
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 5.0, 5.0, 5.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                final datePickedDate =
+                                                    await showDatePicker(
+                                                  context: context,
+                                                  initialDate: DateTime
+                                                      .fromMicrosecondsSinceEpoch(
+                                                          -315608400000000),
+                                                  firstDate: DateTime(1900),
+                                                  lastDate: DateTime(2050),
+                                                  builder: (context, child) {
+                                                    return wrapInMaterialDatePickerTheme(
+                                                      context,
+                                                      child!,
+                                                      headerBackgroundColor:
+                                                          const Color(0xFF0F3A03),
+                                                      headerForegroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryBackground,
+                                                      headerTextStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineLarge
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                      pickerBackgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryBackground,
+                                                      pickerForegroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      selectedDateTimeBackgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                      selectedDateTimeForegroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      actionButtonForegroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                      iconSize: 24.0,
+                                                    );
+                                                  },
+                                                );
+
+                                                if (datePickedDate != null) {
+                                                  safeSetState(() {
+                                                    _model.datePicked =
+                                                        DateTime(
+                                                      datePickedDate.year,
+                                                      datePickedDate.month,
+                                                      datePickedDate.day,
+                                                    );
+                                                  });
+                                                }
+                                                setState(() {
+                                                  _model
+                                                      .dataNascimentoTextController
+                                                      ?.text = dateTimeFormat(
+                                                    'd/M/y',
+                                                    _model.datePicked,
+                                                    locale: FFLocalizations.of(
+                                                            context)
+                                                        .languageCode,
+                                                  );
+                                                });
+                                              },
+                                              child: const Icon(
+                                                Icons.edit_calendar_outlined,
+                                                color: Color(0xFF1D7804),
+                                                size: 30.0,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -2186,7 +2290,7 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                               _model.telefoneDonoTextController.text,
                           cpf: _model.cpfDonoTextController.text,
                           dataNascimento:
-                              _model.dataNascimentoTextController.text,
+                              functions.convertData(_model.datePicked),
                           transactionPassword: _model.senhaTransacao!.text,
                         );
                         if ((_model.apiResultm09?.succeeded ?? true)) {

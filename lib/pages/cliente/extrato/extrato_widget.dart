@@ -83,35 +83,37 @@ class _ExtratoWidgetState extends State<ExtratoWidget> {
                         const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: MediaQuery.sizeOf(context).height * 1.0,
+                      height: MediaQuery.sizeOf(context).height * 0.75,
                       decoration: const BoxDecoration(),
                       child: Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 3.0, 0.0, 0.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            ListView(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              children: [
-                                wrapWithModel(
-                                  model: _model.extractTileModel1,
-                                  updateCallback: () => setState(() {}),
-                                  child: const ExtractTileWidget(),
-                                ),
-                                SizedBox(
-                                  height: 200.0,
-                                  child: wrapWithModel(
-                                    model: _model.extractTileModel2,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              ListView(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                children: [
+                                  wrapWithModel(
+                                    model: _model.extractTileModel1,
                                     updateCallback: () => setState(() {}),
                                     child: const ExtractTileWidget(),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                  SizedBox(
+                                    height: 200.0,
+                                    child: wrapWithModel(
+                                      model: _model.extractTileModel2,
+                                      updateCallback: () => setState(() {}),
+                                      child: const ExtractTileWidget(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

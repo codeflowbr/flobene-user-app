@@ -106,6 +106,7 @@ class CadastroLojistaModel extends FlutterFlowModel<CadastroLojistaWidget> {
   TextEditingController? dataNascimentoTextController;
   String? Function(BuildContext, String?)?
       dataNascimentoTextControllerValidator;
+  DateTime? datePicked;
   // State field(s) for logi widget.
   FocusNode? logiFocusNode1;
   TextEditingController? logiTextController1;

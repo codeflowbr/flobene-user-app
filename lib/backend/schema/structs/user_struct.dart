@@ -14,13 +14,15 @@ class UserStruct extends BaseStruct {
     String? accountId,
     String? idempresa,
     String? empresaName,
+    String? role,
   })  : _uid = uid,
         _displayName = displayName,
         _createTime = createTime,
         _walletId = walletId,
         _accountId = accountId,
         _idempresa = idempresa,
-        _empresaName = empresaName;
+        _empresaName = empresaName,
+        _role = role;
 
   // "uid" field.
   String? _uid;
@@ -64,6 +66,12 @@ class UserStruct extends BaseStruct {
   set empresaName(String? val) => _empresaName = val;
   bool hasEmpresaName() => _empresaName != null;
 
+  // "role" field.
+  String? _role;
+  String get role => _role ?? '';
+  set role(String? val) => _role = val;
+  bool hasRole() => _role != null;
+
   static UserStruct fromMap(Map<String, dynamic> data) => UserStruct(
         uid: data['uid'] as String?,
         displayName: data['display_name'] as String?,
@@ -72,6 +80,7 @@ class UserStruct extends BaseStruct {
         accountId: data['accountId'] as String?,
         idempresa: data['idempresa'] as String?,
         empresaName: data['empresaName'] as String?,
+        role: data['role'] as String?,
       );
 
   static UserStruct? maybeFromMap(dynamic data) =>
@@ -85,6 +94,7 @@ class UserStruct extends BaseStruct {
         'accountId': _accountId,
         'idempresa': _idempresa,
         'empresaName': _empresaName,
+        'role': _role,
       }.withoutNulls;
 
   @override
@@ -115,6 +125,10 @@ class UserStruct extends BaseStruct {
         ),
         'empresaName': serializeParam(
           _empresaName,
+          ParamType.String,
+        ),
+        'role': serializeParam(
+          _role,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -156,6 +170,11 @@ class UserStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        role: deserializeParam(
+          data['role'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -170,7 +189,8 @@ class UserStruct extends BaseStruct {
         walletId == other.walletId &&
         accountId == other.accountId &&
         idempresa == other.idempresa &&
-        empresaName == other.empresaName;
+        empresaName == other.empresaName &&
+        role == other.role;
   }
 
   @override
@@ -181,7 +201,8 @@ class UserStruct extends BaseStruct {
         walletId,
         accountId,
         idempresa,
-        empresaName
+        empresaName,
+        role
       ]);
 }
 
@@ -193,6 +214,7 @@ UserStruct createUserStruct({
   String? accountId,
   String? idempresa,
   String? empresaName,
+  String? role,
 }) =>
     UserStruct(
       uid: uid,
@@ -202,4 +224,5 @@ UserStruct createUserStruct({
       accountId: accountId,
       idempresa: idempresa,
       empresaName: empresaName,
+      role: role,
     );

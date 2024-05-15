@@ -1,25 +1,23 @@
-import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'login_model.dart';
-export 'login_model.dart';
+import 'recovery_model.dart';
+export 'recovery_model.dart';
 
-class LoginWidget extends StatefulWidget {
-  const LoginWidget({super.key});
+class RecoveryWidget extends StatefulWidget {
+  const RecoveryWidget({super.key});
 
   @override
-  State<LoginWidget> createState() => _LoginWidgetState();
+  State<RecoveryWidget> createState() => _RecoveryWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget>
+class _RecoveryWidgetState extends State<RecoveryWidget>
     with TickerProviderStateMixin {
-  late LoginModel _model;
+  late RecoveryModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -28,13 +26,10 @@ class _LoginWidgetState extends State<LoginWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => LoginModel());
+    _model = createModel(context, () => RecoveryModel());
 
     _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
-
-    _model.passwordTextController ??= TextEditingController();
-    _model.passwordFocusNode ??= FocusNode();
 
     animationsMap.addAll({
       'containerOnPageLoadAnimation': AnimationInfo(
@@ -113,7 +108,7 @@ class _LoginWidgetState extends State<LoginWidget>
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
@@ -158,6 +153,7 @@ class _LoginWidgetState extends State<LoginWidget>
                             ],
                             borderRadius: BorderRadius.circular(12.0),
                           ),
+                          alignment: const AlignmentDirectional(0.0, 1.0),
                           child: Align(
                             alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
@@ -176,7 +172,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                       text: TextSpan(
                                         children: [
                                           TextSpan(
-                                            text: 'Bem vindo Ao ',
+                                            text: 'Recuperar sua senha',
                                             style: FlutterFlowTheme.of(context)
                                                 .displaySmall
                                                 .override(
@@ -186,14 +182,6 @@ class _LoginWidgetState extends State<LoginWidget>
                                                       .primary,
                                                   letterSpacing: 0.0,
                                                 ),
-                                          ),
-                                          TextSpan(
-                                            text: 'Pila!',
-                                            style: TextStyle(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
-                                            ),
                                           )
                                         ],
                                         style: FlutterFlowTheme.of(context)
@@ -295,244 +283,44 @@ class _LoginWidgetState extends State<LoginWidget>
                                   ),
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 8.0),
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      child: TextFormField(
-                                        controller:
-                                            _model.passwordTextController,
-                                        focusNode: _model.passwordFocusNode,
-                                        autofocus: true,
-                                        autofillHints: const [AutofillHints.password],
-                                        obscureText: !_model.passwordVisibility,
-                                        decoration: InputDecoration(
-                                          labelText: 'Senha',
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelLarge
-                                                  .override(
-                                                    fontFamily: 'Roboto',
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          filled: true,
-                                          fillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryBackground,
-                                          suffixIcon: InkWell(
-                                            onTap: () => setState(
-                                              () => _model.passwordVisibility =
-                                                  !_model.passwordVisibility,
-                                            ),
-                                            focusNode:
-                                                FocusNode(skipTraversal: true),
-                                            child: Icon(
-                                              _model.passwordVisibility
-                                                  ? Icons.visibility_outlined
-                                                  : Icons
-                                                      .visibility_off_outlined,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 24.0,
-                                            ),
-                                          ),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              fontFamily: 'Roboto',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              letterSpacing: 0.0,
-                                            ),
-                                        validator: _model
-                                            .passwordTextControllerValidator
-                                            .asValidator(context),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 24.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        // You will have to add an action on this rich text to go to your login page.
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 0.0, 0.0, 16.0),
-                                          child: RichText(
-                                            textScaler: MediaQuery.of(context)
-                                                .textScaler,
-                                            text: TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: 'Esqueci minha senha',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily: 'Roboto',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                                )
-                                              ],
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Roboto',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 16.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        _model.usuario = await LoginCall.call(
+                                        _model.usuario =
+                                            await RecoveryPasswordCall.call(
                                           login: _model
                                               .emailAddressTextController.text,
-                                          password: _model
-                                              .passwordTextController.text,
                                         );
                                         if ((_model.usuario?.succeeded ??
                                             true)) {
-                                          GoRouter.of(context)
-                                              .prepareAuthEvent();
-                                          await authManager.signIn(
-                                            authenticationToken:
-                                                LoginCall.authToken(
-                                              (_model.usuario?.jsonBody ?? ''),
-                                            ),
-                                            authUid: LoginCall.id(
-                                              (_model.usuario?.jsonBody ?? ''),
-                                            )?.toString(),
-                                            userData: UserStruct(
-                                              displayName: LoginCall.peopleName(
-                                                (_model.usuario?.jsonBody ??
-                                                    ''),
+                                          context.pushNamed(
+                                            'AlterarSenha',
+                                            queryParameters: {
+                                              'email': serializeParam(
+                                                _model
+                                                    .emailAddressTextController
+                                                    .text,
+                                                ParamType.String,
                                               ),
-                                              walletId: getJsonField(
-                                                (_model.usuario?.jsonBody ??
-                                                    ''),
-                                                r'''$.wallet.id''',
-                                              ).toString(),
-                                              uid: LoginCall.id(
-                                                (_model.usuario?.jsonBody ??
-                                                    ''),
-                                              )?.toString(),
-                                              empresaName: getJsonField(
-                                                (_model.usuario?.jsonBody ??
-                                                    ''),
-                                                r'''$.people.company.fantasyName''',
-                                              ).toString(),
-                                              idempresa: getJsonField(
-                                                (_model.usuario?.jsonBody ??
-                                                    ''),
-                                                r'''$.people.company.id''',
-                                              ).toString(),
-                                              role: LoginCall.role(
-                                                (_model.usuario?.jsonBody ??
-                                                    ''),
-                                              ),
-                                            ),
-                                          );
-                                          if (LoginCall.role(
-                                                (_model.usuario?.jsonBody ??
-                                                    ''),
-                                              ) ==
-                                              'CLIENTE') {
-                                            context.goNamedAuth(
-                                                'HomePage', context.mounted);
-                                          } else {
-                                            if (LoginCall.role(
+                                              'pinc': serializeParam(
+                                                getJsonField(
                                                   (_model.usuario?.jsonBody ??
                                                       ''),
-                                                ) ==
-                                                'LOJISTA') {
-                                              context.goNamedAuth(
-                                                  'HomePageLojista',
-                                                  context.mounted);
-                                            } else {
-                                              await showDialog(
-                                                context: context,
-                                                builder: (alertDialogContext) {
-                                                  return AlertDialog(
-                                                    title: const Text(
-                                                        'Erro ao realizar login'),
-                                                    content: const Text(
-                                                        'Usuário não autorizado a entrar no sistema!'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext),
-                                                        child: const Text('Ok'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              );
-                                            }
-                                          }
+                                                  r'''$.codigo''',
+                                                ).toString(),
+                                                ParamType.String,
+                                              ),
+                                            }.withoutNulls,
+                                          );
                                         } else {
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {
                                               return AlertDialog(
                                                 title: const Text(
-                                                    'Erro ao realizar login'),
+                                                    'Erro ao enviar email'),
                                                 content: const Text(
-                                                    'Login ou senha incorretos'),
+                                                    'Usuário não encontrado'),
                                                 actions: [
                                                   TextButton(
                                                     onPressed: () =>
@@ -548,7 +336,7 @@ class _LoginWidgetState extends State<LoginWidget>
 
                                         setState(() {});
                                       },
-                                      text: 'Entrar',
+                                      text: 'Recuperar Senha',
                                       options: FFButtonOptions(
                                         width: double.infinity,
                                         height: 44.0,
@@ -590,20 +378,17 @@ class _LoginWidgetState extends State<LoginWidget>
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            context
-                                                .pushNamed('cadastroLojista');
+                                            context.pushNamed('login');
                                           },
                                           child: RichText(
                                             textScaler: MediaQuery.of(context)
                                                 .textScaler,
                                             text: TextSpan(
-                                              children: [
+                                              children: const [
                                                 TextSpan(
-                                                  text: 'Cadastro Lojista',
+                                                  text: 'Cancelar',
                                                   style: TextStyle(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
+                                                    color: Color(0xFFC21D1D),
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 )

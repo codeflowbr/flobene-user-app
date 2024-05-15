@@ -26,6 +26,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   auto_size_text: 3.0.0
+  barcode_widget: 2.0.3
   cached_network_image: 3.3.1
   carousel_slider: 4.2.1
   collection: 1.18.0

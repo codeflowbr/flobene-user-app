@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
@@ -27,7 +29,7 @@ class LoginCall {
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
       alwaysAllowBody: false,
     );
@@ -255,7 +257,7 @@ class BuscarAccountIdCall {
       },
       returnBody: true,
       encodeBodyUtf8: false,
-      decodeUtf8: false,
+      decodeUtf8: true,
       cache: false,
       alwaysAllowBody: false,
     );
@@ -289,6 +291,92 @@ class BuscarAccountIdCall {
         response,
         r'''$.people.company.fantasyName''',
       ));
+  static String? senhaTransacao(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.wallet.transactionPassword''',
+      ));
+}
+
+class BuscarExtratosPorAccountIdCall {
+  static Future<ApiCallResponse> call({
+    String? accountId = '',
+    String? jwt = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'buscarExtratosPorAccountId',
+      apiUrl:
+          'https://codeflowbr.online:8888/api/v1/extract/receiver/$accountId',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer $jwt',
+      },
+      params: {
+        'accountId': accountId,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List<double>? valor(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].value''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<double>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? data(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].date''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<int>? senderId(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].sender''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  static List<int>? receiverId(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].receiver''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? befeficio(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].type''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List? isDeposit(dynamic response) => getJsonField(
+        response,
+        r'''$[:].deposit''',
+        true,
+      ) as List?;
+  static List? isCashout(dynamic response) => getJsonField(
+        response,
+        r'''$[:].cashout''',
+        true,
+      ) as List?;
 }
 
 class VendaLojistaCall {
@@ -481,6 +569,71 @@ class CnpjCall {
       ));
 }
 
+class TrocarSenhaCall {
+  static Future<ApiCallResponse> call({
+    String? jwt = '',
+    int? id,
+    String? transactionPassword = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "id": $id,
+  "transactionPassword": "$transactionPassword"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'trocarSenha',
+      apiUrl: 'https://codeflowbr.online:8888/api/v1/wallet/transaction',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': 'Bearer $jwt',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class WithdrawCall {
+  static Future<ApiCallResponse> call({
+    String? jwt = '',
+    int? shopid,
+    String? password = '',
+    double? value,
+    String? date = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "shopId": $shopid,
+  "password": "$password",
+  "value": $value,
+  "date": "$date",
+  "payed": false
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'withdraw',
+      apiUrl: 'https://codeflowbr.online:8888/api/v1/withdraw/shop',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer $jwt',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
@@ -502,6 +655,9 @@ String _serializeList(List? list) {
   try {
     return json.encode(list);
   } catch (_) {
+    if (kDebugMode) {
+      print("List serialization failed. Returning empty list.");
+    }
     return '[]';
   }
 }
@@ -511,6 +667,9 @@ String _serializeJson(dynamic jsonVar, [bool isList = false]) {
   try {
     return json.encode(jsonVar);
   } catch (_) {
+    if (kDebugMode) {
+      print("Json serialization failed. Returning empty json.");
+    }
     return isList ? '[]' : '{}';
   }
 }

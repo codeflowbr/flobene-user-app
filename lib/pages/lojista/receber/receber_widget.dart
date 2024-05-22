@@ -4,18 +4,19 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:barcode_widget/barcode_widget.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'receber_model.dart';
 export 'receber_model.dart';
 
 class ReceberWidget extends StatefulWidget {
   const ReceberWidget({
     super.key,
-    required this.contaLojista,
-    required this.listatipovale,
+    this.contaLojista,
+    this.listatipovale,
   });
 
   final dynamic contaLojista;
@@ -34,10 +35,6 @@ class _ReceberWidgetState extends State<ReceberWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ReceberModel());
-
-    _model.valorTextController ??= TextEditingController();
-    _model.valorFocusNode ??= FocusNode();
-    _model.valorFocusNode!.addListener(() => setState(() {}));
   }
 
   @override
@@ -49,6 +46,8 @@ class _ReceberWidgetState extends State<ReceberWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -92,9 +91,7 @@ class _ReceberWidgetState extends State<ReceberWidget> {
                 child: Container(
                   width: double.infinity,
                   height: 100.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                  ),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -102,103 +99,16 @@ class _ReceberWidgetState extends State<ReceberWidget> {
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 30.0, 0.0, 0.0),
-                          child: TextFormField(
-                            controller: _model.valorTextController,
-                            focusNode: _model.valorFocusNode,
-                            onChanged: (_) => EasyDebounce.debounce(
-                              '_model.valorTextController',
-                              const Duration(milliseconds: 2000),
-                              () async {
-                                setState(() {
-                                  _model.currency = int.tryParse(
-                                      _model.valorTextController.text);
-                                });
-                                setState(() {
-                                  _model.valorTextController?.text =
-                                      formatNumber(
-                                    _model.currency,
-                                    formatType: FormatType.decimal,
-                                    decimalType: DecimalType.commaDecimal,
-                                    currency: 'R\$',
-                                  );
-                                });
-                              },
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 50.0,
+                            child: custom_widgets.MoedaBRField(
+                              width: double.infinity,
+                              height: 50.0,
+                              bordercolor: FlutterFlowTheme.of(context).primary,
+                              borderRadius: 12.0,
+                              initialValue: '0,00',
                             ),
-                            autofocus: true,
-                            textCapitalization: TextCapitalization.words,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              labelText: 'Valor',
-                              labelStyle: FlutterFlowTheme.of(context)
-                                  .headlineMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                  ),
-                              hintStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: 'Roboto',
-                                    letterSpacing: 0.0,
-                                  ),
-                              errorStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.of(context).error,
-                                    fontSize: 12.0,
-                                    letterSpacing: 0.0,
-                                  ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).alternate,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              filled: true,
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              contentPadding: const EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 20.0, 16.0, 20.0),
-                            ),
-                            style: FlutterFlowTheme.of(context)
-                                .headlineMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  fontSize: 14.0,
-                                  letterSpacing: 0.0,
-                                ),
-                            keyboardType: TextInputType.number,
-                            cursorColor: FlutterFlowTheme.of(context).primary,
-                            validator: _model.valorTextControllerValidator
-                                .asValidator(context),
                           ),
                         ),
                       Padding(
@@ -216,7 +126,8 @@ class _ReceberWidgetState extends State<ReceberWidget> {
                                   onChanged: (val) => setState(() {}),
                                   controller:
                                       _model.radioButtonValueController ??=
-                                          FormFieldController<String>(null),
+                                          FormFieldController<String>(
+                                              widget.listatipovale!.first),
                                   optionHeight: 32.0,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
@@ -251,15 +162,27 @@ class _ReceberWidgetState extends State<ReceberWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 30.0, 0.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: () async {
-                              setState(() {
-                                _model.qrgerado = true;
-                                _model.qrcode = functions.createqrcode(
-                                    widget.contaLojista,
-                                    _model.currency!.toDouble(),
-                                    _model.radioButtonValue!);
-                              });
-                            },
+                            onPressed: ((FFAppState().propPrice <= 0.0) &&
+                                    (_model.radioButtonValue == null ||
+                                        _model.radioButtonValue == ''))
+                                ? null
+                                : () async {
+                                    setState(() {
+                                      _model.qrgerado = true;
+                                      _model.qrcode = functions.createqrcode(
+                                          widget.contaLojista,
+                                          FFAppState().propPrice,
+                                          _model.radioButtonValue!,
+                                          getJsonField(
+                                            widget.contaLojista,
+                                            r'''$.shop.fantasyName''',
+                                          ).toString(),
+                                          getJsonField(
+                                            widget.contaLojista,
+                                            r'''$.shop.cnpj''',
+                                          ).toString());
+                                    });
+                                  },
                             text: 'Gerar QRCODE',
                             options: FFButtonOptions(
                               width: double.infinity,
@@ -282,6 +205,8 @@ class _ReceberWidgetState extends State<ReceberWidget> {
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
+                              disabledColor: const Color(0xFF938E8E),
+                              disabledTextColor: Colors.black,
                             ),
                           ),
                         ),
@@ -290,11 +215,11 @@ class _ReceberWidgetState extends State<ReceberWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 100.0, 0.0, 0.0),
                           child: BarcodeWidget(
-                            data: 'teste',
+                            data: _model.qrcode!,
                             barcode: Barcode.qrCode(),
                             width: double.infinity,
                             height: 200.0,
-                            color: const Color(0xFF478C3F),
+                            color: const Color(0xFF30552C),
                             backgroundColor: Colors.transparent,
                             errorBuilder: (context, error) => const SizedBox(
                               width: double.infinity,

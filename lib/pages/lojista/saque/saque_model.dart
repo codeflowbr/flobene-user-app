@@ -1,3 +1,4 @@
+import '/components/senha_saque/senha_saque_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'saque_widget.dart' show SaqueWidget;
 import 'package:flutter/material.dart';
@@ -7,21 +8,22 @@ class SaqueModel extends FlutterFlowModel<SaqueWidget> {
 
   int? currency;
 
+  bool password = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for valor widget.
-  FocusNode? valorFocusNode;
-  TextEditingController? valorTextController;
-  String? Function(BuildContext, String?)? valorTextControllerValidator;
+  // Model for senhaSaque component.
+  late SenhaSaqueModel senhaSaqueModel;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    senhaSaqueModel = createModel(context, () => SenhaSaqueModel());
+  }
 
   @override
   void dispose() {
     unfocusNode.dispose();
-    valorFocusNode?.dispose();
-    valorTextController?.dispose();
+    senhaSaqueModel.dispose();
   }
 }

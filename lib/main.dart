@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -9,7 +10,6 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
-import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 
 void main() async {
@@ -17,7 +17,13 @@ void main() async {
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
 
-  runApp(const MyApp());
+  final appState = FFAppState(); // Initialize FFAppState
+  await appState.initializePersistedState();
+
+  runApp(ChangeNotifierProvider(
+    create: (context) => appState,
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -114,7 +120,6 @@ class _NavBarPageState extends State<NavBarPage> {
     final tabs = {
       'HomePage': const HomePageWidget(),
       'Estabelecimentos': const EstabelecimentosWidget(),
-      'Extrato': const ExtratoWidget(),
       'PerfilPage': const PerfilPageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
@@ -198,32 +203,8 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.list_alt,
-                  color: currentIndex == 2
-                      ? FlutterFlowTheme.of(context).secondary
-                      : FlutterFlowTheme.of(context).primary,
-                  size: 24.0,
-                ),
-                Text(
-                  'Extrato',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 2
-                        ? FlutterFlowTheme.of(context).secondary
-                        : FlutterFlowTheme.of(context).primary,
-                    fontSize: 11.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
                   Icons.person_3,
-                  color: currentIndex == 3
+                  color: currentIndex == 2
                       ? FlutterFlowTheme.of(context).secondary
                       : FlutterFlowTheme.of(context).primary,
                   size: 24.0,
@@ -232,7 +213,7 @@ class _NavBarPageState extends State<NavBarPage> {
                   'Perfil',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: currentIndex == 3
+                    color: currentIndex == 2
                         ? FlutterFlowTheme.of(context).secondary
                         : FlutterFlowTheme.of(context).primary,
                     fontSize: 11.0,

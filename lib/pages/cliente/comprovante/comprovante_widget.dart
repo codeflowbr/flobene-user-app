@@ -10,18 +10,24 @@ export 'comprovante_model.dart';
 class ComprovanteWidget extends StatefulWidget {
   const ComprovanteWidget({
     super.key,
-    this.linkPagamento,
     String? valor,
     this.destinatario,
     this.data,
     this.modelo,
+    required this.idLoja,
+    required this.cnpj,
+    required this.sender,
+    required this.cpf,
   }) : valor = valor ?? '100,00';
 
-  final String? linkPagamento;
   final String valor;
   final String? destinatario;
   final String? data;
   final String? modelo;
+  final String? idLoja;
+  final String? cnpj;
+  final String? sender;
+  final String? cpf;
 
   @override
   State<ComprovanteWidget> createState() => _ComprovanteWidgetState();
@@ -73,15 +79,20 @@ class _ComprovanteWidgetState extends State<ComprovanteWidget> {
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text(
-                          'Transferência Realizada',
-                          style:
-                              FlutterFlowTheme.of(context).labelLarge.override(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 24.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 38.0, 0.0, 0.0),
+                          child: Text(
+                            'Transferência Realizada',
+                            style: FlutterFlowTheme.of(context)
+                                .labelLarge
+                                .override(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 24.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
                         ),
                       ],
                     ),
@@ -91,18 +102,6 @@ class _ComprovanteWidgetState extends State<ComprovanteWidget> {
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Text(
-                            'R\$ ',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Roboto',
-                                  color: FlutterFlowTheme.of(context).secondary,
-                                  fontSize: 32.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                          ),
                           Text(
                             widget.valor,
                             style: FlutterFlowTheme.of(context)
@@ -158,8 +157,16 @@ class _ComprovanteWidgetState extends State<ComprovanteWidget> {
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 64.0, 0.0, 0.0),
                       child: FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
+                        onPressed: () async {
+                          await actions.gerarPDF(
+                            widget.modelo,
+                            widget.cnpj,
+                            widget.destinatario,
+                            widget.data,
+                            widget.sender,
+                            widget.cpf,
+                            widget.valor,
+                          );
                         },
                         text: 'Enviar Comprovante',
                         icon: const Icon(
@@ -196,7 +203,7 @@ class _ComprovanteWidgetState extends State<ComprovanteWidget> {
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 48.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 100.0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           context.pushNamed('HomePage');

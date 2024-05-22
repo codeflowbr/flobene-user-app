@@ -39,10 +39,16 @@ String createqrcode(
   dynamic dadosLojista,
   double valor,
   String tipoVale,
+  String? fantasy,
+  String? cnpjParam,
 ) {
 // Obter a data atual
   DateTime now = DateTime.now();
   String formattedDate = now.toIso8601String();
+  String cnpjMiddle = cnpjParam!.substring(3, cnpjParam.length - 3);
+
+  // Adiciona a parte do meio entre ***
+  String cnpj = "***$cnpjMiddle***";
 
   // Criar o objeto JSON
   Map<String, dynamic> jsonMap = {
@@ -50,10 +56,38 @@ String createqrcode(
     "value": valor,
     "type": tipoVale,
     "date": formattedDate,
+    "fantasy": fantasy,
+    "cnpj": cnpj
   };
 
   // Converter o mapa para uma string JSON
   String jsonString = jsonEncode(jsonMap);
 
   return jsonString;
+}
+
+String caughtJsonPath(
+  String path,
+  String jsonString,
+) {
+  Map<String, dynamic> qrData = jsonDecode(jsonString);
+  return qrData[path].toString();
+}
+
+String? newCustomFunction2(String? dataString) {
+  // Converter a string para um objeto DateTime
+  DateTime data = DateTime.parse(dataString!);
+
+  // Formatar a data no formato dd/mm/yyyy
+  String dataFormatada = DateFormat('dd/MM/yyyy').format(data);
+
+  return dataFormatada;
+}
+
+int? stringToInt(String numeroString) {
+  return int.parse(numeroString);
+}
+
+double stringToDouble(String numeroString) {
+  return double.parse(numeroString);
 }

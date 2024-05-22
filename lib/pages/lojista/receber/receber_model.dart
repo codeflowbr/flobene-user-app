@@ -15,10 +15,6 @@ class ReceberModel extends FlutterFlowModel<ReceberWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for valor widget.
-  FocusNode? valorFocusNode;
-  TextEditingController? valorTextController;
-  String? Function(BuildContext, String?)? valorTextControllerValidator;
   // State field(s) for RadioButton widget.
   FormFieldController<String>? radioButtonValueController;
 
@@ -28,8 +24,6 @@ class ReceberModel extends FlutterFlowModel<ReceberWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    valorFocusNode?.dispose();
-    valorTextController?.dispose();
   }
 
   /// Additional helper methods.

@@ -9,7 +9,7 @@ class HomePageLojistaModel extends FlutterFlowModel<HomePageLojistaWidget> {
 
   String nome = '\nnome';
 
-  String valorLojista = '0,00';
+  String valorLojista = 'R\$ 0,00';
 
   dynamic json;
 

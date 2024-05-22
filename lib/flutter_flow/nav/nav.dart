@@ -98,13 +98,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : const EstabelecimentosWidget(),
         ),
         FFRoute(
-          name: 'Extrato',
-          path: '/extrato',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'Extrato')
-              : const ExtratoWidget(),
-        ),
-        FFRoute(
           name: 'pagamento',
           path: '/pagamento',
           builder: (context, params) => PagamentoWidget(
@@ -112,20 +105,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'linkPagamento',
               ParamType.String,
             ),
-            valor: params.getParam(
-              'valor',
+            nome: params.getParam(
+              'nome',
               ParamType.String,
             ),
-            destinatario: params.getParam(
-              'destinatario',
-              ParamType.String,
-            ),
-            data: params.getParam(
-              'data',
-              ParamType.String,
-            ),
-            modelo: params.getParam(
-              'modelo',
+            cpf: params.getParam(
+              'cpf',
               ParamType.String,
             ),
           ),
@@ -136,10 +121,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => NavBarPage(
             initialPage: '',
             page: ComprovanteWidget(
-              linkPagamento: params.getParam(
-                'linkPagamento',
-                ParamType.String,
-              ),
               valor: params.getParam(
                 'valor',
                 ParamType.String,
@@ -154,6 +135,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
               modelo: params.getParam(
                 'modelo',
+                ParamType.String,
+              ),
+              idLoja: params.getParam(
+                'idLoja',
+                ParamType.String,
+              ),
+              cnpj: params.getParam(
+                'cnpj',
+                ParamType.String,
+              ),
+              sender: params.getParam(
+                'sender',
+                ParamType.String,
+              ),
+              cpf: params.getParam(
+                'cpf',
                 ParamType.String,
               ),
             ),
@@ -246,6 +243,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.JSON,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'PerfilLojista',
+          path: '/perfilLojista',
+          builder: (context, params) => const PerfilLojistaWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

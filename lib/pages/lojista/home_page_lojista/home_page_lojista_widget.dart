@@ -32,7 +32,7 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockOrientation();
       _model.instantTimer = InstantTimer.periodic(
-        duration: const Duration(milliseconds: 2000),
+        duration: const Duration(milliseconds: 10000),
         callback: (timer) async {
           _model.apiResult4oe = await BuscarAccountIdCall.call(
             jwt: currentAuthenticationToken,
@@ -40,14 +40,15 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
           );
           if ((_model.apiResult4oe?.succeeded ?? true)) {
             setState(() {
-              _model.nome = BuscarAccountIdCall.peopleName(
+              _model.nome = getJsonField(
                 (_model.apiResult4oe?.jsonBody ?? ''),
-              )!;
+                r'''$.shop.fantasyName''',
+              ).toString().toString();
+              _model.json = (_model.apiResult4oe?.jsonBody ?? '');
               _model.valorLojista = functions.valor00(getJsonField(
                 (_model.apiResult4oe?.jsonBody ?? ''),
                 r'''$.wallet.balanceShop''',
               ).toString().toString());
-              _model.json = (_model.apiResult4oe?.jsonBody ?? '');
             });
           }
         },
@@ -93,42 +94,45 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            RichText(
-                              textScaler: MediaQuery.of(context).textScaler,
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'Olá, ',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Roboto',
-                                          color: Colors.white,
-                                          fontSize: 24.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text: _model.nome,
-                                    style: const TextStyle(),
-                                  )
-                                ],
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Roboto',
-                                      color: Colors.white,
-                                      fontSize: 24.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.bold,
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              RichText(
+                                textScaler: MediaQuery.of(context).textScaler,
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Olá, ',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Roboto',
+                                            color: Colors.white,
+                                            fontSize: 24.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                     ),
+                                    TextSpan(
+                                      text: _model.nome,
+                                      style: const TextStyle(),
+                                    )
+                                  ],
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Roboto',
+                                        color: Colors.white,
+                                        fontSize: 24.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
@@ -176,6 +180,8 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                                 ),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
@@ -204,46 +210,48 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 66.0, 0.0, 0.0),
-                              child: Container(
-                                width: MediaQuery.sizeOf(context).width * 0.26,
-                                height:
-                                    MediaQuery.sizeOf(context).height * 0.113,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF8BF56C),
-                                  borderRadius: BorderRadius.circular(6.0),
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    context.pushNamed(
-                                      'Receber',
-                                      queryParameters: {
-                                        'contaLojista': serializeParam(
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.pushNamed(
+                                    'Receber',
+                                    queryParameters: {
+                                      'contaLojista': serializeParam(
+                                        _model.json,
+                                        ParamType.JSON,
+                                      ),
+                                      'listatipovale': serializeParam(
+                                        (getJsonField(
                                           _model.json,
-                                          ParamType.JSON,
-                                        ),
-                                        'listatipovale': serializeParam(
-                                          (getJsonField(
-                                            _model.json,
-                                            r'''$.shop.beneficio''',
-                                            true,
-                                          ) as List)
-                                              .map<String>((s) => s.toString())
-                                              .toList(),
-                                          ParamType.String,
+                                          r'''$.shop.beneficio''',
                                           true,
-                                        ),
-                                      }.withoutNulls,
-                                    );
-                                  },
+                                        ) as List)
+                                            .map<String>((s) => s.toString())
+                                            .toList(),
+                                        ParamType.String,
+                                        true,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                },
+                                child: Container(
+                                  width:
+                                      MediaQuery.sizeOf(context).width * 0.26,
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.113,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF8BF56C),
+                                    borderRadius: BorderRadius.circular(6.0),
+                                    shape: BoxShape.rectangle,
+                                    border: Border.all(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      width: 1.0,
+                                    ),
+                                  ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
@@ -286,13 +294,73 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 66.0, 0.0, 0.0),
+                              child: Container(
+                                width: MediaQuery.sizeOf(context).width * 0.26,
+                                height:
+                                    MediaQuery.sizeOf(context).height * 0.113,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF8BF56C),
+                                  borderRadius: BorderRadius.circular(6.0),
+                                  shape: BoxShape.rectangle,
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    width: 1.0,
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Align(
+                                      alignment:
+                                          const AlignmentDirectional(0.0, -1.0),
+                                      child: Icon(
+                                        Icons.list_alt,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        size: 35.0,
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 10.0),
+                                        child: Text(
+                                          'Extrato',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Roboto',
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 66.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed('Estabelecimentos');
+                                  context.pushNamed(
+                                    'Saque',
+                                    queryParameters: {
+                                      'contaLojista': serializeParam(
+                                        _model.json,
+                                        ParamType.JSON,
+                                      ),
+                                    }.withoutNulls,
+                                  );
                                 },
                                 child: Container(
                                   width:
@@ -317,8 +385,8 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                                       Align(
                                         alignment:
                                             const AlignmentDirectional(0.0, -1.0),
-                                        child: Icon(
-                                          Icons.list_alt,
+                                        child: FaIcon(
+                                          FontAwesomeIcons.moneyBillWaveAlt,
                                           color: FlutterFlowTheme.of(context)
                                               .primaryText,
                                           size: 35.0,
@@ -332,7 +400,7 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                                               const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 10.0),
                                           child: Text(
-                                            'Extrato',
+                                            'Saque',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -344,90 +412,6 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                                         ),
                                       ),
                                     ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 66.0, 0.0, 0.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  context.pushNamed('PerfilPage');
-                                },
-                                child: Container(
-                                  width:
-                                      MediaQuery.sizeOf(context).width * 0.26,
-                                  height:
-                                      MediaQuery.sizeOf(context).height * 0.113,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF8BF56C),
-                                    borderRadius: BorderRadius.circular(6.0),
-                                    shape: BoxShape.rectangle,
-                                    border: Border.all(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      context.pushNamed(
-                                        'Saque',
-                                        queryParameters: {
-                                          'contaLojista': serializeParam(
-                                            _model.json,
-                                            ParamType.JSON,
-                                          ),
-                                        }.withoutNulls,
-                                      );
-                                    },
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, -1.0),
-                                          child: FaIcon(
-                                            FontAwesomeIcons.moneyBillWaveAlt,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            size: 35.0,
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 10.0),
-                                            child: Text(
-                                              'Saque',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Roboto',
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
                                   ),
                                 ),
                               ),
@@ -540,29 +524,39 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 5.0, 0.0, 0.0),
-                            child: Icon(
-                              Icons.person,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 24.0,
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed('PerfilLojista');
+                        },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 5.0, 0.0, 0.0),
+                              child: Icon(
+                                Icons.person,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                size: 24.0,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'Perfil',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Roboto',
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  letterSpacing: 0.0,
-                                ),
-                          ),
-                        ],
+                            Text(
+                              'Perfil',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Roboto',
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

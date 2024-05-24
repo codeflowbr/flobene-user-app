@@ -10,7 +10,12 @@ import 'perfil_lojista_model.dart';
 export 'perfil_lojista_model.dart';
 
 class PerfilLojistaWidget extends StatefulWidget {
-  const PerfilLojistaWidget({super.key});
+  const PerfilLojistaWidget({
+    super.key,
+    required this.nome,
+  });
+
+  final String? nome;
 
   @override
   State<PerfilLojistaWidget> createState() => _PerfilLojistaWidgetState();
@@ -29,10 +34,6 @@ class _PerfilLojistaWidgetState extends State<PerfilLojistaWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockOrientation();
-      setState(() {
-        _model.nome = currentUserData!.displayName;
-        _model.empresa = currentUserData!.empresaName;
-      });
     });
   }
 
@@ -68,38 +69,44 @@ class _PerfilLojistaWidgetState extends State<PerfilLojistaWidget> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          AutoSizeText(
-                            'Olá ',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Roboto',
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  fontSize: 24.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                            minFontSize: 24.0,
-                          ),
-                          AutoSizeText(
-                            _model.nome,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Roboto',
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  fontSize: 24.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                            minFontSize: 24.0,
-                          ),
-                        ],
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            AutoSizeText(
+                              'Olá ',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Roboto',
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    fontSize: 24.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                              minFontSize: 24.0,
+                            ),
+                            AutoSizeText(
+                              valueOrDefault<String>(
+                                widget.nome,
+                                'nome',
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Roboto',
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    fontSize: 24.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                              minFontSize: 24.0,
+                            ),
+                          ],
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(

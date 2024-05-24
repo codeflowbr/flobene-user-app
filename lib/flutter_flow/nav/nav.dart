@@ -247,7 +247,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'PerfilLojista',
           path: '/perfilLojista',
-          builder: (context, params) => const PerfilLojistaWidget(),
+          builder: (context, params) => PerfilLojistaWidget(
+            nome: params.getParam(
+              'nome',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

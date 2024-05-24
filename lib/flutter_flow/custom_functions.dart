@@ -91,3 +91,14 @@ int? stringToInt(String numeroString) {
 double stringToDouble(String numeroString) {
   return double.parse(numeroString);
 }
+
+String? horaDate(String dataString) {
+  if (dataString == null || dataString.length < 16) return null;
+
+  // Extrair a hora e o minuto das posições conhecidas na string
+  String hora = dataString.substring(11, 13);
+  String minuto = dataString.substring(14, 16);
+
+  // Retornar a hora e o minuto concatenados com ':' entre eles
+  return '$hora:$minuto';
+}

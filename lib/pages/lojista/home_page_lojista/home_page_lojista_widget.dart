@@ -31,6 +31,16 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockOrientation();
+      _model.apiExtrato = await BuscarExtratosPorAccountIdCall.call(
+        jwt: currentAuthenticationToken,
+        accountId: currentUserUid,
+      );
+      if ((_model.apiExtrato?.succeeded ?? true)) {
+        setState(() {
+          _model.extratoJson =
+              (_model.apiExtrato?.jsonBody ?? '').toList().cast<dynamic>();
+        });
+      }
       _model.instantTimer = InstantTimer.periodic(
         duration: const Duration(milliseconds: 10000),
         callback: (timer) async {
@@ -203,13 +213,12 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                             ),
                           ),
                         ),
-                        Row(
+                        Column(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 66.0, 0.0, 0.0),
+                                  0.0, 30.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -238,10 +247,9 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                                   );
                                 },
                                 child: Container(
-                                  width:
-                                      MediaQuery.sizeOf(context).width * 0.26,
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
                                   height:
-                                      MediaQuery.sizeOf(context).height * 0.113,
+                                      MediaQuery.sizeOf(context).height * 0.06,
                                   decoration: BoxDecoration(
                                     color: const Color(0xFF8BF56C),
                                     borderRadius: BorderRadius.circular(6.0),
@@ -252,19 +260,23 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                                       width: 1.0,
                                     ),
                                   ),
-                                  child: Column(
+                                  child: Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Align(
                                         alignment:
                                             const AlignmentDirectional(0.0, -1.0),
-                                        child: Icon(
-                                          Icons.qr_code_scanner_sharp,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 35.0,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 5.0, 0.0, 0.0),
+                                          child: Icon(
+                                            Icons.qr_code_scanner_sharp,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            size: 35.0,
+                                          ),
                                         ),
                                       ),
                                       Align(
@@ -273,13 +285,14 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                                         child: Padding(
                                           padding:
                                               const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 10.0),
+                                                  15.0, 0.0, 0.0, 0.0),
                                           child: Text(
                                             'Receber',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Roboto',
+                                                  fontSize: 25.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -293,59 +306,7 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 66.0, 0.0, 0.0),
-                              child: Container(
-                                width: MediaQuery.sizeOf(context).width * 0.26,
-                                height:
-                                    MediaQuery.sizeOf(context).height * 0.113,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF8BF56C),
-                                  borderRadius: BorderRadius.circular(6.0),
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, -1.0),
-                                      child: Icon(
-                                        Icons.list_alt,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        size: 35.0,
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 10.0),
-                                        child: Text(
-                                          'Extrato',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Roboto',
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 66.0, 0.0, 0.0),
+                                  0.0, 15.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -363,10 +324,9 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                                   );
                                 },
                                 child: Container(
-                                  width:
-                                      MediaQuery.sizeOf(context).width * 0.26,
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
                                   height:
-                                      MediaQuery.sizeOf(context).height * 0.113,
+                                      MediaQuery.sizeOf(context).height * 0.06,
                                   decoration: BoxDecoration(
                                     color: const Color(0xFF8BF56C),
                                     borderRadius: BorderRadius.circular(6.0),
@@ -377,19 +337,23 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                                       width: 1.0,
                                     ),
                                   ),
-                                  child: Column(
+                                  child: Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Align(
                                         alignment:
                                             const AlignmentDirectional(0.0, -1.0),
-                                        child: FaIcon(
-                                          FontAwesomeIcons.moneyBillWaveAlt,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 35.0,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 5.0, 0.0, 0.0),
+                                          child: FaIcon(
+                                            FontAwesomeIcons.moneyBillWaveAlt,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            size: 35.0,
+                                          ),
                                         ),
                                       ),
                                       Align(
@@ -398,13 +362,14 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                                         child: Padding(
                                           padding:
                                               const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 10.0),
+                                                  15.0, 0.0, 0.0, 0.0),
                                           child: Text(
                                             'Saque',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Roboto',
+                                                  fontSize: 26.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -418,23 +383,313 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                             ),
                           ],
                         ),
-                        Flexible(
-                          child: Align(
-                            alignment: const AlignmentDirectional(0.0, 35.0),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 35.0, 0.0, 50.0),
-                              child: Text(
-                                _model.valorLojista,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      fontSize: 25.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 30.0, 0.0, 30.0),
+                                  child: Builder(
+                                    builder: (context) {
+                                      final extrato =
+                                          _model.extratoJson.toList();
+                                      return ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: extrato.length,
+                                        itemBuilder: (context, extratoIndex) {
+                                          final extratoItem =
+                                              extrato[extratoIndex];
+                                          return SingleChildScrollView(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  getJsonField(
+                                                    extratoItem,
+                                                    r'''$.dataFormatada''',
+                                                  ).toString(),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelLarge
+                                                      .override(
+                                                        fontFamily: 'Roboto',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
+                                                        fontSize: 20.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                ),
+                                                Builder(
+                                                  builder: (context) {
+                                                    final tileExtract =
+                                                        getJsonField(
+                                                      extratoItem,
+                                                      r'''$.extractDTO''',
+                                                    ).toList();
+                                                    return ListView.builder(
+                                                      padding: EdgeInsets.zero,
+                                                      primary: false,
+                                                      shrinkWrap: true,
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      itemCount:
+                                                          tileExtract.length,
+                                                      itemBuilder: (context,
+                                                          tileExtractIndex) {
+                                                        final tileExtractItem =
+                                                            tileExtract[
+                                                                tileExtractIndex];
+                                                        return Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      10.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Container(
+                                                            width: 100.0,
+                                                            height: 60.0,
+                                                            decoration:
+                                                                const BoxDecoration(),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    if (valueOrDefault<
+                                                                        bool>(
+                                                                      getJsonField(
+                                                                        tileExtractItem,
+                                                                        r'''$.cashout''',
+                                                                      ),
+                                                                      true,
+                                                                    ))
+                                                                      const Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            5.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .trending_down,
+                                                                          color:
+                                                                              Color(0xFFFF0005),
+                                                                          size:
+                                                                              40.0,
+                                                                        ),
+                                                                      ),
+                                                                    if (!valueOrDefault<
+                                                                        bool>(
+                                                                      getJsonField(
+                                                                        tileExtractItem,
+                                                                        r'''$.cashout''',
+                                                                      ),
+                                                                      true,
+                                                                    ))
+                                                                      Padding(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            5.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .trending_up,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primary,
+                                                                          size:
+                                                                              40.0,
+                                                                        ),
+                                                                      ),
+                                                                    Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        Text(
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            !getJsonField(
+                                                                              tileExtractItem,
+                                                                              r'''$.cashout''',
+                                                                            )
+                                                                                ? getJsonField(
+                                                                                    tileExtractItem,
+                                                                                    r'''$.senderName''',
+                                                                                  ).toString()
+                                                                                : 'Saque',
+                                                                            'teste',
+                                                                          ),
+                                                                          style:
+                                                                              const TextStyle(
+                                                                            color:
+                                                                                Color(0xFF616060),
+                                                                            fontSize:
+                                                                                16.0,
+                                                                          ),
+                                                                        ),
+                                                                        Text(
+                                                                          functions
+                                                                              .valor00(getJsonField(
+                                                                            tileExtractItem,
+                                                                            r'''$.value''',
+                                                                          ).toString()),
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Roboto',
+                                                                                color: valueOrDefault<Color>(
+                                                                                  getJsonField(
+                                                                                    tileExtractItem,
+                                                                                    r'''$.cashout''',
+                                                                                  )
+                                                                                      ? const Color(0xFFFF0000)
+                                                                                      : FlutterFlowTheme.of(context).primary,
+                                                                                  FlutterFlowTheme.of(context).primary,
+                                                                                ),
+                                                                                fontSize: 16.0,
+                                                                                letterSpacing: 0.0,
+                                                                              ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Text(
+                                                                      () {
+                                                                        if (getJsonField(
+                                                                          tileExtractItem,
+                                                                          r'''$.deposit''',
+                                                                        )) {
+                                                                          return 'Depósito';
+                                                                        } else if (getJsonField(
+                                                                          tileExtractItem,
+                                                                          r'''$.cashout''',
+                                                                        )) {
+                                                                          return 'Saque';
+                                                                        } else {
+                                                                          return 'Venda';
+                                                                        }
+                                                                      }(),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Roboto',
+                                                                            color:
+                                                                                const Color(0xFF616060),
+                                                                            fontSize:
+                                                                                16.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                          ),
+                                                                    ),
+                                                                    Text(
+                                                                      !getJsonField(
+                                                                        tileExtractItem,
+                                                                        r'''$.cashout''',
+                                                                      )
+                                                                          ? getJsonField(
+                                                                              tileExtractItem,
+                                                                              r'''$.type''',
+                                                                            ).toString()
+                                                                          : 'Saque',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Roboto',
+                                                                            color:
+                                                                                const Color(0xFF616060),
+                                                                            fontSize:
+                                                                                16.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                          ),
+                                                                    ),
+                                                                    Text(
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        functions
+                                                                            .horaDate(getJsonField(
+                                                                          tileExtractItem,
+                                                                          r'''$.date''',
+                                                                        ).toString()),
+                                                                        '00:00',
+                                                                      ),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Roboto',
+                                                                            color:
+                                                                                const Color(0xFF616060),
+                                                                            fontSize:
+                                                                                16.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                          ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -493,44 +748,21 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 5.0, 0.0, 0.0),
-                            child: Icon(
-                              Icons.list_alt,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 24.0,
-                            ),
-                          ),
-                          Text(
-                            'Extrato',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Roboto',
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  letterSpacing: 0.0,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 100.0,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                      ),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed('PerfilLojista');
+                          context.pushNamed(
+                            'PerfilLojista',
+                            queryParameters: {
+                              'nome': serializeParam(
+                                _model.nome,
+                                ParamType.String,
+                              ),
+                            }.withoutNulls,
+                          );
                         },
                         child: Column(
                           mainAxisSize: MainAxisSize.max,

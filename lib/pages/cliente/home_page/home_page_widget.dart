@@ -654,241 +654,234 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       .fromSTEB(
                                                           0.0, 10.0, 0.0, 0.0),
                                                   child: Container(
-                                                    width: 100.0,
+                                                    width: double.infinity,
                                                     height: 60.0,
                                                     decoration: const BoxDecoration(),
-                                                    child:
-                                                        SingleChildScrollView(
-                                                      scrollDirection:
-                                                          Axis.horizontal,
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              if (!valueOrDefault<
-                                                                  bool>(
-                                                                getJsonField(
-                                                                  tileExtractItem,
-                                                                  r'''$.deposit''',
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            if (!valueOrDefault<
+                                                                bool>(
+                                                              getJsonField(
+                                                                tileExtractItem,
+                                                                r'''$.deposit''',
+                                                              ),
+                                                              true,
+                                                            ))
+                                                              const Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            5.0,
+                                                                            0.0),
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .trending_down,
+                                                                  color: Color(
+                                                                      0xFFFF0005),
+                                                                  size: 40.0,
                                                                 ),
-                                                                true,
-                                                              ))
-                                                                const Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          5.0,
-                                                                          0.0),
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .trending_down,
-                                                                    color: Color(
-                                                                        0xFFFF0005),
-                                                                    size: 40.0,
-                                                                  ),
+                                                              ),
+                                                            if (valueOrDefault<
+                                                                bool>(
+                                                              getJsonField(
+                                                                tileExtractItem,
+                                                                r'''$.deposit''',
+                                                              ),
+                                                              true,
+                                                            ))
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            5.0,
+                                                                            0.0),
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .trending_up,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  size: 40.0,
                                                                 ),
-                                                              if (valueOrDefault<
-                                                                  bool>(
-                                                                getJsonField(
-                                                                  tileExtractItem,
-                                                                  r'''$.deposit''',
-                                                                ),
-                                                                true,
-                                                              ))
-                                                                Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          5.0,
-                                                                          0.0),
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .trending_up,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
-                                                                    size: 40.0,
-                                                                  ),
-                                                                ),
-                                                              Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    valueOrDefault<
-                                                                        String>(
-                                                                      !getJsonField(
-                                                                        tileExtractItem,
-                                                                        r'''$.deposit''',
-                                                                      )
-                                                                          ? getJsonField(
-                                                                              tileExtractItem,
-                                                                              r'''$.receiverName''',
-                                                                            )
-                                                                              .toString()
-                                                                          : currentUserData
-                                                                              ?.empresaName,
-                                                                      'teste',
-                                                                    ),
-                                                                    style:
-                                                                        const TextStyle(
-                                                                      color: Color(
-                                                                          0xFF616060),
-                                                                      fontSize:
-                                                                          16.0,
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    functions
-                                                                        .valor00(
-                                                                            getJsonField(
+                                                              ),
+                                                            Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    !getJsonField(
                                                                       tileExtractItem,
-                                                                      r'''$.value''',
-                                                                    ).toString()),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Roboto',
-                                                                          color:
-                                                                              valueOrDefault<Color>(
-                                                                            !getJsonField(
-                                                                              tileExtractItem,
-                                                                              r'''$.deposit''',
-                                                                            )
-                                                                                ? const Color(0xFFFF0000)
-                                                                                : FlutterFlowTheme.of(context).primary,
-                                                                            FlutterFlowTheme.of(context).primary,
-                                                                          ),
-                                                                          fontSize:
-                                                                              16.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                        ),
+                                                                      r'''$.deposit''',
+                                                                    )
+                                                                        ? getJsonField(
+                                                                            tileExtractItem,
+                                                                            r'''$.receiverName''',
+                                                                          )
+                                                                            .toString()
+                                                                        : currentUserData
+                                                                            ?.empresaName,
+                                                                    'teste',
+                                                                  ).maybeHandleOverflow(
+                                                                      maxChars:
+                                                                          20),
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Color(
+                                                                        0xFF616060),
+                                                                    fontSize:
+                                                                        16.0,
                                                                   ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .end,
-                                                            children: [
-                                                              Text(
-                                                                () {
-                                                                  if (getJsonField(
-                                                                    tileExtractItem,
-                                                                    r'''$.deposit''',
-                                                                  )) {
-                                                                    return 'Depósito';
-                                                                  } else if (getJsonField(
-                                                                    tileExtractItem,
-                                                                    r'''$.cashout''',
-                                                                  )) {
-                                                                    return 'Saque';
-                                                                  } else {
-                                                                    return 'Compra';
-                                                                  }
-                                                                }(),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .end,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Roboto',
-                                                                      color: const Color(
-                                                                          0xFF616060),
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
-                                                              ),
-                                                              Text(
-                                                                getJsonField(
-                                                                  tileExtractItem,
-                                                                  r'''$.type''',
-                                                                ).toString(),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .end,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Roboto',
-                                                                      color: const Color(
-                                                                          0xFF616060),
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
-                                                              ),
-                                                              Text(
-                                                                valueOrDefault<
-                                                                    String>(
-                                                                  functions
-                                                                      .horaDate(
-                                                                          getJsonField(
-                                                                    tileExtractItem,
-                                                                    r'''$.date''',
-                                                                  ).toString()),
-                                                                  '00:00',
                                                                 ),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .end,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Roboto',
-                                                                      color: const Color(
-                                                                          0xFF616060),
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
+                                                                Text(
+                                                                  functions.valor00(
+                                                                      getJsonField(
+                                                                    tileExtractItem,
+                                                                    r'''$.value''',
+                                                                  ).toString()),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Roboto',
+                                                                        color: valueOrDefault<
+                                                                            Color>(
+                                                                          !getJsonField(
+                                                                            tileExtractItem,
+                                                                            r'''$.deposit''',
+                                                                          )
+                                                                              ? const Color(0xFFFF0000)
+                                                                              : FlutterFlowTheme.of(context).primary,
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .primary,
+                                                                        ),
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            Text(
+                                                              () {
+                                                                if (getJsonField(
+                                                                  tileExtractItem,
+                                                                  r'''$.deposit''',
+                                                                )) {
+                                                                  return 'Depósito';
+                                                                } else if (getJsonField(
+                                                                  tileExtractItem,
+                                                                  r'''$.cashout''',
+                                                                )) {
+                                                                  return 'Saque';
+                                                                } else {
+                                                                  return 'Compra';
+                                                                }
+                                                              }(),
+                                                              textAlign:
+                                                                  TextAlign.end,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    color: const Color(
+                                                                        0xFF616060),
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                            Text(
+                                                              getJsonField(
+                                                                tileExtractItem,
+                                                                r'''$.type''',
+                                                              ).toString(),
+                                                              textAlign:
+                                                                  TextAlign.end,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    color: const Color(
+                                                                        0xFF616060),
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                            Text(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                functions.horaDate(
+                                                                    getJsonField(
+                                                                  tileExtractItem,
+                                                                  r'''$.date''',
+                                                                ).toString()),
+                                                                '00:00',
                                                               ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
+                                                              textAlign:
+                                                                  TextAlign.end,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    color: const Color(
+                                                                        0xFF616060),
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 );

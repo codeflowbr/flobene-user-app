@@ -429,7 +429,7 @@ class _AlterarSenhaWidgetState extends State<AlterarSenhaWidget>
                                     appContext: context,
                                     length: 6,
                                     textStyle: FlutterFlowTheme.of(context)
-                                        .bodyLarge
+                                        .labelLarge
                                         .override(
                                           fontFamily: 'Roboto',
                                           letterSpacing: 0.0,

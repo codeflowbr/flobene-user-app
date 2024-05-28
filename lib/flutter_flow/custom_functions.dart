@@ -102,3 +102,68 @@ String? horaDate(String dataString) {
   // Retornar a hora e o minuto concatenados com ':' entre eles
   return '$hora:$minuto';
 }
+
+LatLng? stringParaLng(String latLng) {
+  stringToLatLng(String latLngString) {
+    // Remover espaços em branco, se houver
+    latLngString = latLngString.trim();
+
+    // Dividir a string por vírgula
+    List<String> latLngList = latLngString.split(',');
+
+    // Verificar se a lista contém exatamente dois elementos (latitude e longitude)
+    if (latLngList.length != 2) {
+      throw FormatException("A string fornecida não está no formato correto");
+    }
+
+    // Converter os elementos para double
+    double latitude = double.parse(latLngList[0].trim());
+    double longitude = double.parse(latLngList[1].trim());
+
+    // Criar e retornar o objeto LatLng
+    return LatLng(latitude, longitude);
+  }
+}
+
+List<LatLng>? markers(List<MapStruct> maps) {
+  if (maps == null) return null;
+  final List<LatLng> result = [];
+  for (final map in maps) {
+    var latLngString = map.latLng;
+    final latLng = latLngString.split(',');
+    if (latLng.length != 2) continue;
+    final latitude = double.tryParse(latLng[0]);
+    final longitude = double.tryParse(latLng[1]);
+    if (latitude == null || longitude == null) continue;
+    result.add(LatLng(latitude, longitude));
+  }
+  return result.isEmpty ? null : result;
+}
+
+int? indexMarkerIdentifier(
+  LatLng? centerMarkerCoordinate,
+  List<LatLng>? listOfLocation,
+) {
+  // return index of argument 1 in argument 2
+  if (centerMarkerCoordinate == null || listOfLocation == null) {
+    return null;
+  }
+  for (int i = 0; i < listOfLocation.length; i++) {
+    if (centerMarkerCoordinate.latitude == listOfLocation[i].latitude &&
+        centerMarkerCoordinate.longitude == listOfLocation[i].longitude) {
+      return i;
+    }
+  }
+  return null;
+}
+
+List<MapStruct>? procurarPorLocais(
+  String? benefit,
+  List<MapStruct> maplist,
+) {
+  List<MapStruct> filteredShops = maplist.where((shop) {
+    return shop.shop.beneficio.contains(benefit);
+  }).toList();
+
+  return filteredShops;
+}

@@ -253,6 +253,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.String,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'EditPasswordPage',
+          path: '/editPasswordPage',
+          builder: (context, params) => NavBarPage(
+            initialPage: '',
+            page: EditPasswordPageWidget(
+              valor: params.getParam(
+                'valor',
+                ParamType.String,
+              ),
+              empresa: params.getParam(
+                'empresa',
+                ParamType.String,
+              ),
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

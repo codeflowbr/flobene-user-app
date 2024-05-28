@@ -84,6 +84,10 @@ class LoginCall {
         response,
         r'''$.authToken''',
       ));
+  static String? cidade(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.people.address.city''',
+      ));
 }
 
 class RecoveryPasswordCall {
@@ -298,6 +302,35 @@ class BuscarAccountIdCall {
       ));
 }
 
+class BuscarLocaisCall {
+  static Future<ApiCallResponse> call({
+    String? jwt = '',
+    String? cidade = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'buscarLocais',
+      apiUrl: 'https://codeflowbr.online:8888/api/v1/shop/locations/$cidade',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer $jwt',
+      },
+      params: {
+        'cidade': cidade,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? latlng(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].latLng''',
+      ));
+}
+
 class BuscarExtratosPorAccountIdCall {
   static Future<ApiCallResponse> call({
     String? accountId = '',
@@ -439,6 +472,8 @@ class CadastroLojistaCall {
     String? cpf = '',
     String? dataNascimento = '',
     String? transactionPassword = '',
+    String? lat = '',
+    String? lng = '',
   }) async {
     final ffApiRequestBody = '''
 {
@@ -451,8 +486,11 @@ class CadastroLojistaCall {
     "fantasyName": "$fantasyName",
     "cnpj": "$cnpj",
     "phone": "$phone",
-   "active": true,
+    "active": true,
     "address": {
+      "lat": "$lat",
+      "lng": "$lng",
+      "latlng":"$lat,$lng",
       "street": "$rua",
       "number": "$numero",
       "neighborhood": "$bairro",
@@ -566,6 +604,45 @@ class CnpjCall {
   static String? cnpj(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.cnpj''',
+      ));
+}
+
+class CeplatlngCall {
+  static Future<ApiCallResponse> call({
+    String? cep = '',
+    String? rua = '',
+    String? numero = '',
+    String? cidade = '',
+    String? estado = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'ceplatlng',
+      apiUrl:
+          'https://maps.googleapis.com/maps/api/geocode/json?address=$rua+$numero+$cidade+$estado+BR&key=AIzaSyDFm2b2g3uS8UObYRoF6-1DOjXlpdZ7YZg',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'cep': cep,
+        'rua': rua,
+        'numero': numero,
+        'cidade': cidade,
+        'estado': estado,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static double? lat(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.results[:].geometry.location.lat''',
+      ));
+  static double? lng(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.results[:].geometry.location.lng''',
       ));
 }
 

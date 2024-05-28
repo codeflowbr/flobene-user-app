@@ -20,3 +20,5 @@ export '/pages/lojista/receber/receber_widget.dart' show ReceberWidget;
 export '/pages/lojista/saque/saque_widget.dart' show SaqueWidget;
 export '/pages/lojista/perfil_lojista/perfil_lojista_widget.dart'
     show PerfilLojistaWidget;
+export '/pages/edit_password_page/edit_password_page_widget.dart'
+    show EditPasswordPageWidget;

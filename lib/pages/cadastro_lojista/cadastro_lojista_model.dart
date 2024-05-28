@@ -5,6 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class CadastroLojistaModel extends FlutterFlowModel<CadastroLojistaWidget> {
+  ///  Local state fields for this page.
+
+  String? lat;
+
+  String? lng;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -24,6 +30,8 @@ class CadastroLojistaModel extends FlutterFlowModel<CadastroLojistaWidget> {
 
   // Stores action output result for [Backend Call - API (cnpj)] action in cnpj widget.
   ApiCallResponse? apiResult121;
+  // Stores action output result for [Backend Call - API (ceplatlng)] action in cnpj widget.
+  ApiCallResponse? apiResulti2q;
   // State field(s) for razaoSocial widget.
   FocusNode? razaoSocialFocusNode;
   TextEditingController? razaoSocialTextController;

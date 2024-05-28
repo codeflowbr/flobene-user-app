@@ -277,6 +277,45 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                                                   ''),
                                             )!;
                                           });
+                                          _model.apiResulti2q =
+                                              await CeplatlngCall.call(
+                                            cep: CnpjCall.cep(
+                                              (_model.apiResult121?.jsonBody ??
+                                                  ''),
+                                            ),
+                                            rua: getJsonField(
+                                              (_model.apiResult121?.jsonBody ??
+                                                  ''),
+                                              r'''$.logradouro''',
+                                            ).toString(),
+                                            numero: CnpjCall.numeroCasa(
+                                              (_model.apiResult121?.jsonBody ??
+                                                  ''),
+                                            ),
+                                            cidade: CnpjCall.municipio(
+                                              (_model.apiResult121?.jsonBody ??
+                                                  ''),
+                                            ),
+                                            estado: CnpjCall.uf(
+                                              (_model.apiResult121?.jsonBody ??
+                                                  ''),
+                                            ),
+                                          );
+                                          if ((_model.apiResulti2q?.succeeded ??
+                                              true)) {
+                                            setState(() {
+                                              _model.lat = CeplatlngCall.lat(
+                                                (_model.apiResulti2q
+                                                        ?.jsonBody ??
+                                                    ''),
+                                              )?.toString();
+                                              _model.lng = CeplatlngCall.lng(
+                                                (_model.apiResulti2q
+                                                        ?.jsonBody ??
+                                                    ''),
+                                              )?.toString();
+                                            });
+                                          }
                                         }
 
                                         setState(() {});
@@ -2292,6 +2331,8 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                           dataNascimento:
                               functions.convertData(_model.datePicked),
                           transactionPassword: _model.senhaTransacao!.text,
+                          lat: _model.lat,
+                          lng: _model.lng,
                         );
                         if ((_model.apiResultm09?.succeeded ?? true)) {
                           await showDialog(
@@ -2311,6 +2352,8 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                               );
                             },
                           );
+
+                          context.pushNamed('login');
                         } else {
                           if ((_model.apiResultm09?.statusCode ?? 200) == 409) {
                             await showDialog(

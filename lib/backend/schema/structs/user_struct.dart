@@ -15,6 +15,8 @@ class UserStruct extends BaseStruct {
     String? idempresa,
     String? empresaName,
     String? role,
+    String? cidade,
+    String? senha,
   })  : _uid = uid,
         _displayName = displayName,
         _createTime = createTime,
@@ -22,7 +24,9 @@ class UserStruct extends BaseStruct {
         _accountId = accountId,
         _idempresa = idempresa,
         _empresaName = empresaName,
-        _role = role;
+        _role = role,
+        _cidade = cidade,
+        _senha = senha;
 
   // "uid" field.
   String? _uid;
@@ -72,6 +76,18 @@ class UserStruct extends BaseStruct {
   set role(String? val) => _role = val;
   bool hasRole() => _role != null;
 
+  // "cidade" field.
+  String? _cidade;
+  String get cidade => _cidade ?? '';
+  set cidade(String? val) => _cidade = val;
+  bool hasCidade() => _cidade != null;
+
+  // "senha" field.
+  String? _senha;
+  String get senha => _senha ?? '';
+  set senha(String? val) => _senha = val;
+  bool hasSenha() => _senha != null;
+
   static UserStruct fromMap(Map<String, dynamic> data) => UserStruct(
         uid: data['uid'] as String?,
         displayName: data['display_name'] as String?,
@@ -81,6 +97,8 @@ class UserStruct extends BaseStruct {
         idempresa: data['idempresa'] as String?,
         empresaName: data['empresaName'] as String?,
         role: data['role'] as String?,
+        cidade: data['cidade'] as String?,
+        senha: data['senha'] as String?,
       );
 
   static UserStruct? maybeFromMap(dynamic data) =>
@@ -95,6 +113,8 @@ class UserStruct extends BaseStruct {
         'idempresa': _idempresa,
         'empresaName': _empresaName,
         'role': _role,
+        'cidade': _cidade,
+        'senha': _senha,
       }.withoutNulls;
 
   @override
@@ -129,6 +149,14 @@ class UserStruct extends BaseStruct {
         ),
         'role': serializeParam(
           _role,
+          ParamType.String,
+        ),
+        'cidade': serializeParam(
+          _cidade,
+          ParamType.String,
+        ),
+        'senha': serializeParam(
+          _senha,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -175,6 +203,16 @@ class UserStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        cidade: deserializeParam(
+          data['cidade'],
+          ParamType.String,
+          false,
+        ),
+        senha: deserializeParam(
+          data['senha'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -190,7 +228,9 @@ class UserStruct extends BaseStruct {
         accountId == other.accountId &&
         idempresa == other.idempresa &&
         empresaName == other.empresaName &&
-        role == other.role;
+        role == other.role &&
+        cidade == other.cidade &&
+        senha == other.senha;
   }
 
   @override
@@ -202,7 +242,9 @@ class UserStruct extends BaseStruct {
         accountId,
         idempresa,
         empresaName,
-        role
+        role,
+        cidade,
+        senha
       ]);
 }
 
@@ -215,6 +257,8 @@ UserStruct createUserStruct({
   String? idempresa,
   String? empresaName,
   String? role,
+  String? cidade,
+  String? senha,
 }) =>
     UserStruct(
       uid: uid,
@@ -225,4 +269,6 @@ UserStruct createUserStruct({
       idempresa: idempresa,
       empresaName: empresaName,
       role: role,
+      cidade: cidade,
+      senha: senha,
     );

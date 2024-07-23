@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '/backend/schema/structs/index.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
@@ -15,12 +16,19 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
-  Future initializePersistedState() async {}
+  Future initializePersistedState() async {
+    prefs = await SharedPreferences.getInstance();
+    _safeInit(() {
+      _idCliente = prefs.getString('ff_idCliente') ?? _idCliente;
+    });
+  }
 
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
   }
+
+  late SharedPreferences prefs;
 
   double _propPrice = 0.0;
   double get propPrice => _propPrice;
@@ -41,26 +49,26 @@ class FFAppState extends ChangeNotifier {
   }
 
   void addToGoogleMapData(GoogleMapDataStruct value) {
-    _GoogleMapData.add(value);
+    GoogleMapData.add(value);
   }
 
   void removeFromGoogleMapData(GoogleMapDataStruct value) {
-    _GoogleMapData.remove(value);
+    GoogleMapData.remove(value);
   }
 
   void removeAtIndexFromGoogleMapData(int index) {
-    _GoogleMapData.removeAt(index);
+    GoogleMapData.removeAt(index);
   }
 
   void updateGoogleMapDataAtIndex(
     int index,
     GoogleMapDataStruct Function(GoogleMapDataStruct) updateFn,
   ) {
-    _GoogleMapData[index] = updateFn(_GoogleMapData[index]);
+    GoogleMapData[index] = updateFn(_GoogleMapData[index]);
   }
 
   void insertAtIndexInGoogleMapData(int index, GoogleMapDataStruct value) {
-    _GoogleMapData.insert(index, value);
+    GoogleMapData.insert(index, value);
   }
 
   List<LatLng> _listaLocais = [];
@@ -70,25 +78,44 @@ class FFAppState extends ChangeNotifier {
   }
 
   void addToListaLocais(LatLng value) {
-    _listaLocais.add(value);
+    listaLocais.add(value);
   }
 
   void removeFromListaLocais(LatLng value) {
-    _listaLocais.remove(value);
+    listaLocais.remove(value);
   }
 
   void removeAtIndexFromListaLocais(int index) {
-    _listaLocais.removeAt(index);
+    listaLocais.removeAt(index);
   }
 
   void updateListaLocaisAtIndex(
     int index,
     LatLng Function(LatLng) updateFn,
   ) {
-    _listaLocais[index] = updateFn(_listaLocais[index]);
+    listaLocais[index] = updateFn(_listaLocais[index]);
   }
 
   void insertAtIndexInListaLocais(int index, LatLng value) {
-    _listaLocais.insert(index, value);
+    listaLocais.insert(index, value);
   }
+
+  String _idCliente = '';
+  String get idCliente => _idCliente;
+  set idCliente(String value) {
+    _idCliente = value;
+    prefs.setString('ff_idCliente', value);
+  }
+}
+
+void _safeInit(Function() initializeField) {
+  try {
+    initializeField();
+  } catch (_) {}
+}
+
+Future _safeInitAsync(Function() initializeField) async {
+  try {
+    await initializeField();
+  } catch (_) {}
 }

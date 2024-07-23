@@ -7,6 +7,7 @@ import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'home_page_lojista_model.dart';
 export 'home_page_lojista_model.dart';
@@ -33,13 +34,13 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
       await actions.lockOrientation();
       _model.apiExtrato = await BuscarExtratosPorAccountIdCall.call(
         jwt: currentAuthenticationToken,
-        accountId: currentUserUid,
+        accountId: currentUserData?.uid,
       );
+
       if ((_model.apiExtrato?.succeeded ?? true)) {
-        setState(() {
-          _model.extratoJson =
-              (_model.apiExtrato?.jsonBody ?? '').toList().cast<dynamic>();
-        });
+        _model.extratoJson =
+            (_model.apiExtrato?.jsonBody ?? '').toList().cast<dynamic>();
+        setState(() {});
       }
       _model.instantTimer = InstantTimer.periodic(
         duration: const Duration(milliseconds: 10000),
@@ -48,18 +49,18 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
             jwt: currentAuthenticationToken,
             accountId: currentUserData?.uid,
           );
+
           if ((_model.apiResult4oe?.succeeded ?? true)) {
-            setState(() {
-              _model.nome = getJsonField(
-                (_model.apiResult4oe?.jsonBody ?? ''),
-                r'''$.shop.fantasyName''',
-              ).toString().toString();
-              _model.json = (_model.apiResult4oe?.jsonBody ?? '');
-              _model.valorLojista = functions.valor00(getJsonField(
-                (_model.apiResult4oe?.jsonBody ?? ''),
-                r'''$.wallet.balanceShop''',
-              ).toString().toString());
-            });
+            _model.nome = getJsonField(
+              (_model.apiResult4oe?.jsonBody ?? ''),
+              r'''$.shop.fantasyName''',
+            ).toString().toString();
+            _model.json = (_model.apiResult4oe?.jsonBody ?? '');
+            _model.valorLojista = functions.valor00(getJsonField(
+              (_model.apiResult4oe?.jsonBody ?? ''),
+              r'''$.wallet.balanceShop''',
+            ).toString().toString());
+            setState(() {});
           }
         },
         startImmediately: true,
@@ -225,26 +226,90 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                    'Receber',
-                                    queryParameters: {
-                                      'contaLojista': serializeParam(
-                                        _model.json,
-                                        ParamType.JSON,
-                                      ),
-                                      'listatipovale': serializeParam(
-                                        (getJsonField(
+                                  var confirmDialogResponse =
+                                      await showDialog<bool>(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: const Text('Receber'),
+                                                content: const Text(
+                                                    'Selecione a forma que deseja receber!'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext,
+                                                            false),
+                                                    child: const Text('Ler QrCode'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext,
+                                                            true),
+                                                    child: const Text('Gerar QrCode'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ) ??
+                                          false;
+                                  if (confirmDialogResponse) {
+                                    context.pushNamed(
+                                      'Receber',
+                                      queryParameters: {
+                                        'contaLojista': serializeParam(
                                           _model.json,
-                                          r'''$.shop.beneficio''',
-                                          true,
-                                        ) as List)
-                                            .map<String>((s) => s.toString())
-                                            .toList(),
-                                        ParamType.String,
-                                        true,
-                                      ),
-                                    }.withoutNulls,
-                                  );
+                                          ParamType.JSON,
+                                        ),
+                                        'listatipovale': serializeParam(
+                                          (getJsonField(
+                                            _model.json,
+                                            r'''$.shop.beneficio''',
+                                            true,
+                                          ) as List)
+                                              .map<String>((s) => s.toString())
+                                              .toList(),
+                                          ParamType.String,
+                                          isList: true,
+                                        ),
+                                      }.withoutNulls,
+                                    );
+                                  } else {
+                                    _model.linkPagamento =
+                                        await FlutterBarcodeScanner.scanBarcode(
+                                      '#C62828', // scanning line color
+                                      'Cancelar', // cancel button text
+                                      true, // whether to show the flash icon
+                                      ScanMode.QR,
+                                    );
+
+                                    if (_model.linkPagamento != '-1') {
+                                      context.pushNamed(
+                                        'LerQrCode',
+                                        queryParameters: {
+                                          'linkPagamento': serializeParam(
+                                            _model.linkPagamento,
+                                            ParamType.String,
+                                          ),
+                                          'listaTipoVale': serializeParam(
+                                            (getJsonField(
+                                              _model.json,
+                                              r'''$.shop.beneficio''',
+                                              true,
+                                            ) as List)
+                                                .map<String>(
+                                                    (s) => s.toString())
+                                                .toList(),
+                                            ParamType.String,
+                                            isList: true,
+                                          ),
+                                        }.withoutNulls,
+                                      );
+                                    }
+                                  }
+
+                                  setState(() {});
                                 },
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width * 1.0,
@@ -393,6 +458,7 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                               child: Builder(
                                 builder: (context) {
                                   final extrato = _model.extratoJson.toList();
+
                                   return ListView.builder(
                                     padding: EdgeInsets.zero,
                                     shrinkWrap: true,
@@ -431,6 +497,7 @@ class _HomePageLojistaWidgetState extends State<HomePageLojistaWidget> {
                                                   extratoItem,
                                                   r'''$.extractDTO''',
                                                 ).toList();
+
                                                 return ListView.builder(
                                                   padding: EdgeInsets.zero,
                                                   primary: false,

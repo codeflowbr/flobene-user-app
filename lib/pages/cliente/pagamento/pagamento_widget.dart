@@ -15,11 +15,15 @@ class PagamentoWidget extends StatefulWidget {
     this.linkPagamento,
     required this.nome,
     required this.cpf,
+    required this.saldoVr,
+    required this.saldoVa,
   });
 
   final String? linkPagamento;
   final String? nome;
   final String? cpf;
+  final double? saldoVr;
+  final double? saldoVa;
 
   @override
   State<PagamentoWidget> createState() => _PagamentoWidgetState();
@@ -38,17 +42,16 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockOrientation();
-      setState(() {
-        _model.valor = functions
-            .valor00(functions.caughtJsonPath('value', widget.linkPagamento!));
-        _model.destinatario =
-            functions.caughtJsonPath('fantasy', widget.linkPagamento!);
-        _model.modelo = functions.caughtJsonPath('type', widget.linkPagamento!);
-        _model.idLoja =
-            functions.caughtJsonPath('sender', widget.linkPagamento!);
-        _model.data = functions.caughtJsonPath('date', widget.linkPagamento!);
-        _model.dataddmmyyyy = functions.newCustomFunction2(_model.data);
-      });
+      _model.valor = functions
+          .valor00(functions.caughtJsonPath('value', widget.linkPagamento!));
+      _model.destinatario =
+          functions.caughtJsonPath('fantasy', widget.linkPagamento!);
+      _model.modelo = functions.caughtJsonPath('type', widget.linkPagamento!);
+      _model.idLoja =
+          functions.caughtJsonPath('sender', widget.linkPagamento!);
+      _model.data = functions.caughtJsonPath('date', widget.linkPagamento!);
+      _model.dataddmmyyyy = functions.newCustomFunction2(_model.data);
+      setState(() {});
     });
   }
 
@@ -293,9 +296,8 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                                 0.0, 0.0, 0.0, 8.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                setState(() {
-                                  _model.passwordActive = true;
-                                });
+                                _model.passwordActive = true;
+                                setState(() {});
                               },
                               text: 'Confirmar',
                               options: FFButtonOptions(
@@ -377,6 +379,8 @@ class _PagamentoWidgetState extends State<PagamentoWidget> {
                           json: widget.linkPagamento!,
                           name: widget.nome!,
                           cpf: widget.cpf!,
+                          saldoVa: widget.saldoVa!,
+                          saldoVr: widget.saldoVr!,
                         ),
                       ),
                     ),

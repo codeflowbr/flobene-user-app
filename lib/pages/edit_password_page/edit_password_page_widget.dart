@@ -38,10 +38,6 @@ class _EditPasswordPageWidgetState extends State<EditPasswordPageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockOrientation();
-      setState(() {
-        _model.nome = currentUserData!.displayName;
-        _model.empresa = currentUserData!.empresaName;
-      });
     });
 
     _model.senhaLoginTextController ??= TextEditingController();
@@ -149,7 +145,7 @@ class _EditPasswordPageWidgetState extends State<EditPasswordPageWidget> {
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                     child: Text(
-                      'Nova Senha',
+                      'Nova senha',
                       style: FlutterFlowTheme.of(context).labelLarge.override(
                             fontFamily: 'Roboto',
                             letterSpacing: 0.0,
@@ -279,6 +275,7 @@ class _EditPasswordPageWidgetState extends State<EditPasswordPageWidget> {
                                   .stringToInt(currentUserData!.walletId),
                               transactionPassword: _model.novaSenha!.text,
                             );
+
                             if ((_model.apiResultdcq?.succeeded ?? true)) {
                               await showDialog(
                                 context: context,

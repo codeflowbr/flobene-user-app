@@ -10,11 +10,17 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
 class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({super.key});
+  const HomePageWidget({
+    super.key,
+    this.clientId,
+  });
+
+  final String? clientId;
 
   @override
   State<HomePageWidget> createState() => _HomePageWidgetState();
@@ -33,15 +39,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockOrientation();
+      FFAppState().idCliente = currentUserUid;
+      setState(() {});
       _model.apiExtrato = await BuscarExtratosPorAccountIdCall.call(
         jwt: currentAuthenticationToken,
         accountId: currentUserUid,
       );
+
       if ((_model.apiExtrato?.succeeded ?? true)) {
-        setState(() {
-          _model.extratoJson =
-              (_model.apiExtrato?.jsonBody ?? '').toList().cast<dynamic>();
-        });
+        _model.extratoJson =
+            (_model.apiExtrato?.jsonBody ?? '').toList().cast<dynamic>();
+        setState(() {});
       }
       _model.instantTimer = InstantTimer.periodic(
         duration: const Duration(milliseconds: 10000),
@@ -50,31 +58,37 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             jwt: currentAuthenticationToken,
             accountId: currentUserData?.uid,
           );
+
           if ((_model.apiResult4oe?.succeeded ?? true)) {
-            setState(() {
-              _model.nome = BuscarAccountIdCall.peopleName(
-                (_model.apiResult4oe?.jsonBody ?? ''),
-              )!;
-              _model.valorali = functions
-                  .valor00(functions.valor00(BuscarAccountIdCall.balanceAli(
-                (_model.apiResult4oe?.jsonBody ?? ''),
-              )?.toString()));
-              _model.valorRef = functions.valor00(getJsonField(
-                (_model.apiResult4oe?.jsonBody ?? ''),
-                r'''$.wallet.balanceRef''',
-              ).toString().toString());
-              _model.walletId = BuscarAccountIdCall.walletId(
-                (_model.apiResult4oe?.jsonBody ?? ''),
-              );
-              _model.passwordActive = BuscarAccountIdCall.senhaTransacao(
-                    (_model.apiResult4oe?.jsonBody ?? ''),
-                  ) ==
-                  '';
-              _model.cpf = getJsonField(
-                (_model.apiResult4oe?.jsonBody ?? ''),
-                r'''$.people.cpf''',
-              ).toString().toString();
-            });
+            _model.nome = BuscarAccountIdCall.peopleName(
+              (_model.apiResult4oe?.jsonBody ?? ''),
+            )!;
+            _model.valorali = functions
+                .valor00(functions.valor00(BuscarAccountIdCall.balanceAli(
+              (_model.apiResult4oe?.jsonBody ?? ''),
+            )?.toString()));
+            _model.valorRef = functions.valor00(getJsonField(
+              (_model.apiResult4oe?.jsonBody ?? ''),
+              r'''$.wallet.balanceRef''',
+            ).toString().toString());
+            _model.walletId = BuscarAccountIdCall.walletId(
+              (_model.apiResult4oe?.jsonBody ?? ''),
+            );
+            _model.passwordActive = BuscarAccountIdCall.senhaTransacao(
+                  (_model.apiResult4oe?.jsonBody ?? ''),
+                ) ==
+                '';
+            _model.cpf = getJsonField(
+              (_model.apiResult4oe?.jsonBody ?? ''),
+              r'''$.people.cpf''',
+            ).toString().toString();
+            _model.aliedouble = BuscarAccountIdCall.balanceAli(
+              (_model.apiResult4oe?.jsonBody ?? ''),
+            );
+            _model.refdouble = BuscarAccountIdCall.balanceRef(
+              (_model.apiResult4oe?.jsonBody ?? ''),
+            );
+            setState(() {});
           }
         },
         startImmediately: true,
@@ -91,6 +105,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -401,6 +417,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         }(_model.cpf!),
                                         ParamType.String,
                                       ),
+                                      'saldoVr': serializeParam(
+                                        _model.refdouble,
+                                        ParamType.double,
+                                      ),
+                                      'saldoVa': serializeParam(
+                                        _model.aliedouble,
+                                        ParamType.double,
+                                      ),
                                     }.withoutNulls,
                                   );
                                 }
@@ -602,6 +626,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           child: Builder(
                             builder: (context) {
                               final extrato = _model.extratoJson.toList();
+
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
@@ -638,6 +663,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               extratoItem,
                                               r'''$.extractDTO''',
                                             ).toList();
+
                                             return ListView.builder(
                                               padding: EdgeInsets.zero,
                                               primary: false,
@@ -913,7 +939,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     model: _model.senhaResetModel,
                     updateCallback: () => setState(() {}),
                     child: SenhaResetWidget(
-                      walletId: _model.walletId!.toString(),
+                      walletId: _model.walletId!,
                     ),
                   ),
                 ),

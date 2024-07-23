@@ -245,18 +245,18 @@ class _SenhaSaqueWidgetState extends State<SenhaSaqueWidget>
                                   alignment: const AlignmentDirectional(0.0, 0.05),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      _model.apiResultdcq =
+                                      _model.apiResultjbz =
                                           await WithdrawCall.call(
                                         jwt: currentAuthenticationToken,
-                                        shopid: functions.stringToInt(
-                                            functions.caughtJsonPath(
-                                                'id', widget.json!)),
+                                        shopid: functions
+                                            .stringToInt(currentUserData!.uid),
                                         password:
                                             _model.pinCodeController!.text,
                                         value: widget.valor,
-                                        date: DateTime.now().toIso8601String(),
+                                        date: functions.getDateNow(),
                                       );
-                                      if ((_model.apiResultdcq?.succeeded ??
+
+                                      if ((_model.apiResultjbz?.succeeded ??
                                           true)) {
                                         var confirmDialogResponse =
                                             await showDialog<bool>(
@@ -265,9 +265,9 @@ class _SenhaSaqueWidgetState extends State<SenhaSaqueWidget>
                                                       (alertDialogContext) {
                                                     return AlertDialog(
                                                       title: const Text(
-                                                          'Saque realizado com sucesso!'),
+                                                          'Sucesso ao realizar o saque!'),
                                                       content: const Text(
-                                                          'Saque realizado para a sua chave pix!'),
+                                                          'Saque concluído com sucesso!'),
                                                       actions: [
                                                         TextButton(
                                                           onPressed: () =>
@@ -302,7 +302,7 @@ class _SenhaSaqueWidgetState extends State<SenhaSaqueWidget>
                                                       title: const Text(
                                                           'Erro ao realizar pagamento'),
                                                       content: const Text(
-                                                          'Senha incorreta'),
+                                                          'Entre em contato com o suporte! no menu perfil -> Ajuda!'),
                                                       actions: [
                                                         TextButton(
                                                           onPressed: () =>
@@ -345,7 +345,7 @@ class _SenhaSaqueWidgetState extends State<SenhaSaqueWidget>
                                             fontFamily: 'Roboto',
                                             letterSpacing: 0.0,
                                           ),
-                                      elevation: 3.0,
+                                      elevation: 999.0,
                                       borderSide: const BorderSide(
                                         color: Colors.transparent,
                                         width: 1.0,

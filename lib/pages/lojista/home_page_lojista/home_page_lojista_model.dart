@@ -30,6 +30,7 @@ class HomePageLojistaModel extends FlutterFlowModel<HomePageLojistaWidget> {
   InstantTimer? instantTimer;
   // Stores action output result for [Backend Call - API (buscarAccountId)] action in HomePageLojista widget.
   ApiCallResponse? apiResult4oe;
+  var linkPagamento = '';
 
   @override
   void initState(BuildContext context) {}

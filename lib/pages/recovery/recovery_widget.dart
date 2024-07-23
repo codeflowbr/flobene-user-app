@@ -291,6 +291,7 @@ class _RecoveryWidgetState extends State<RecoveryWidget>
                                           login: _model
                                               .emailAddressTextController.text,
                                         );
+
                                         if ((_model.usuario?.succeeded ??
                                             true)) {
                                           context.pushNamed(

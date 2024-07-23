@@ -4,12 +4,6 @@ import 'edit_password_page_widget.dart' show EditPasswordPageWidget;
 import 'package:flutter/material.dart';
 
 class EditPasswordPageModel extends FlutterFlowModel<EditPasswordPageWidget> {
-  ///  Local state fields for this page.
-
-  String nome = 'nome';
-
-  String empresa = 'empresa';
-
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

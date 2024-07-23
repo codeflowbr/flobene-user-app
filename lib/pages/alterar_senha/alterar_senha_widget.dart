@@ -497,6 +497,7 @@ class _AlterarSenhaWidgetState extends State<AlterarSenhaWidget>
                                               senha: _model
                                                   .senha1TextController.text,
                                             );
+
                                             if ((_model
                                                     .apiResult6i2?.succeeded ??
                                                 true)) {

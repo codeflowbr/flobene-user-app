@@ -31,11 +31,12 @@ class LoginCall {
       encodeBodyUtf8: false,
       decodeUtf8: true,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
 
-  static int? id(dynamic response) => castToType<int>(getJsonField(
+  static String? id(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.id''',
       ));
@@ -110,6 +111,7 @@ class RecoveryPasswordCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -189,6 +191,7 @@ class AlterarSenhaCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -263,6 +266,7 @@ class BuscarAccountIdCall {
       encodeBodyUtf8: false,
       decodeUtf8: true,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -277,7 +281,7 @@ class BuscarAccountIdCall {
         response,
         r'''$.wallet.balanceRef''',
       ));
-  static int? walletId(dynamic response) => castToType<int>(getJsonField(
+  static String? walletId(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.wallet.id''',
       ));
@@ -321,6 +325,37 @@ class BuscarLocaisCall {
       encodeBodyUtf8: false,
       decodeUtf8: true,
       cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? latlng(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].latLng''',
+      ));
+}
+
+class ExcluirContaCall {
+  static Future<ApiCallResponse> call({
+    String? jwt = '',
+    String? accountId = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'excluirConta',
+      apiUrl:
+          'https://codeflowbr.online:8888/api/v1/account/exclude/$accountId',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer $jwt',
+      },
+      params: {},
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
+      cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -351,6 +386,7 @@ class BuscarExtratosPorAccountIdCall {
       encodeBodyUtf8: false,
       decodeUtf8: true,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -373,24 +409,16 @@ class BuscarExtratosPorAccountIdCall {
           .map((x) => castToType<String>(x))
           .withoutNulls
           .toList();
-  static List<int>? senderId(dynamic response) => (getJsonField(
+  static List? senderId(dynamic response) => getJsonField(
         response,
         r'''$[:].sender''',
         true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<int>(x))
-          .withoutNulls
-          .toList();
-  static List<int>? receiverId(dynamic response) => (getJsonField(
+      ) as List?;
+  static List? receiverId(dynamic response) => getJsonField(
         response,
         r'''$[:].receiver''',
         true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<int>(x))
-          .withoutNulls
-          .toList();
+      ) as List?;
   static List<String>? befeficio(dynamic response) => (getJsonField(
         response,
         r'''$[:].type''',
@@ -415,8 +443,8 @@ class BuscarExtratosPorAccountIdCall {
 class VendaLojistaCall {
   static Future<ApiCallResponse> call({
     String? jwt = '',
-    int? senderID,
-    int? receiverId,
+    String? senderID = '',
+    String? receiverId = '',
     String? password = '',
     double? value,
     String? type = '',
@@ -424,8 +452,8 @@ class VendaLojistaCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "sender": $senderID,
-  "receiver": $receiverId,
+  "sender": "$senderID",
+  "receiver": "$receiverId",
   "password": "$password",
   "value": $value,
   "type": "$type",
@@ -445,6 +473,7 @@ class VendaLojistaCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -510,7 +539,7 @@ class CadastroLojistaCall {
     "balanceRef": 0,
     "balanceAli": 0,
     "balanceShop": 0,
-    "percentage": 7,
+    "percentage": 5.99,
     "transactionPassword": "$transactionPassword"
   }
 }''';
@@ -526,6 +555,7 @@ class CadastroLojistaCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -547,6 +577,7 @@ class CnpjCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -605,6 +636,20 @@ class CnpjCall {
         response,
         r'''$.cnpj''',
       ));
+  static String? codigoPrincipal(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.atividade_principal[:].code''',
+      ));
+  static List<String>? codigoSecundario(dynamic response) => (getJsonField(
+        response,
+        r'''$.atividades_secundarias[:].code''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
 class CeplatlngCall {
@@ -632,6 +677,7 @@ class CeplatlngCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -649,12 +695,12 @@ class CeplatlngCall {
 class TrocarSenhaCall {
   static Future<ApiCallResponse> call({
     String? jwt = '',
-    int? id,
+    String? id = '',
     String? transactionPassword = '',
   }) async {
     final ffApiRequestBody = '''
 {
-  "id": $id,
+  "id": "$id",
   "transactionPassword": "$transactionPassword"
 }''';
     return ApiManager.instance.makeApiCall(
@@ -671,6 +717,7 @@ class TrocarSenhaCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -679,14 +726,14 @@ class TrocarSenhaCall {
 class WithdrawCall {
   static Future<ApiCallResponse> call({
     String? jwt = '',
-    int? shopid,
+    String? shopid = '',
     String? password = '',
     double? value,
     String? date = '',
   }) async {
     final ffApiRequestBody = '''
 {
-  "shopId": $shopid,
+  "shopId": "$shopid",
   "password": "$password",
   "value": $value,
   "date": "$date",
@@ -706,9 +753,40 @@ class WithdrawCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
+}
+
+class BuscarCidadesPorLatLngDoubleCall {
+  static Future<ApiCallResponse> call({
+    double? lat,
+    double? long,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'buscarCidadesPorLatLngDouble',
+      apiUrl:
+          'https://nominatim.openstreetmap.org/reverse?format=json&lat=$lat&lon=$long&zoom=18&addressdetails=1',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'lat': lat,
+        'long': long,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? cidade(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.address.town''',
+      ));
 }
 
 class ApiPagingParams {
@@ -727,10 +805,14 @@ class ApiPagingParams {
       'PagingParams(nextPageNumber: $nextPageNumber, numItems: $numItems, lastResponse: $lastResponse,)';
 }
 
+String _toEncodable(dynamic item) {
+  return item;
+}
+
 String _serializeList(List? list) {
   list ??= <String>[];
   try {
-    return json.encode(list);
+    return json.encode(list, toEncodable: _toEncodable);
   } catch (_) {
     if (kDebugMode) {
       print("List serialization failed. Returning empty list.");
@@ -742,7 +824,7 @@ String _serializeList(List? list) {
 String _serializeJson(dynamic jsonVar, [bool isList = false]) {
   jsonVar ??= (isList ? [] : {});
   try {
-    return json.encode(jsonVar);
+    return json.encode(jsonVar, toEncodable: _toEncodable);
   } catch (_) {
     if (kDebugMode) {
       print("Json serialization failed. Returning empty json.");

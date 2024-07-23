@@ -251,6 +251,7 @@ class _SenhaResetWidgetState extends State<SenhaResetWidget>
                                         transactionPassword:
                                             _model.pinCodeController!.text,
                                       );
+
                                       if ((_model.apiResultdcq?.succeeded ??
                                           true)) {
                                         context.pushNamed('HomePage');

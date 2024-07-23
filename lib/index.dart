@@ -1,6 +1,6 @@
 // Export pages
 export '/pages/cliente/home_page/home_page_widget.dart' show HomePageWidget;
-export '/pages/cliente/estabelecimentos/estabelecimentos_widget.dart'
+export '/pages/estabelecimentos/estabelecimentos_widget.dart'
     show EstabelecimentosWidget;
 export '/pages/cliente/pagamento/pagamento_widget.dart' show PagamentoWidget;
 export '/pages/cliente/comprovante/comprovante_widget.dart'
@@ -22,3 +22,11 @@ export '/pages/lojista/perfil_lojista/perfil_lojista_widget.dart'
     show PerfilLojistaWidget;
 export '/pages/edit_password_page/edit_password_page_widget.dart'
     show EditPasswordPageWidget;
+export '/pages/lojista/edit_password_pagelojista/edit_password_pagelojista_widget.dart'
+    show EditPasswordPagelojistaWidget;
+export '/pages/lojista/termos_de_uso_lojista/termos_de_uso_lojista_widget.dart'
+    show TermosDeUsoLojistaWidget;
+export '/pages/lojista/ler_qr_code/ler_qr_code_widget.dart'
+    show LerQrCodeWidget;
+export '/pages/qr_code_cliente/qr_code_cliente_widget.dart'
+    show QrCodeClienteWidget;

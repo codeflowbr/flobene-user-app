@@ -167,21 +167,20 @@ class _ReceberWidgetState extends State<ReceberWidget> {
                                         _model.radioButtonValue == ''))
                                 ? null
                                 : () async {
-                                    setState(() {
-                                      _model.qrgerado = true;
-                                      _model.qrcode = functions.createqrcode(
+                                    _model.qrgerado = true;
+                                    _model.qrcode = functions.createqrcode(
+                                        widget.contaLojista,
+                                        FFAppState().propPrice,
+                                        _model.radioButtonValue!,
+                                        getJsonField(
                                           widget.contaLojista,
-                                          FFAppState().propPrice,
-                                          _model.radioButtonValue!,
-                                          getJsonField(
-                                            widget.contaLojista,
-                                            r'''$.shop.fantasyName''',
-                                          ).toString(),
-                                          getJsonField(
-                                            widget.contaLojista,
-                                            r'''$.shop.cnpj''',
-                                          ).toString());
-                                    });
+                                          r'''$.shop.fantasyName''',
+                                        ).toString(),
+                                        getJsonField(
+                                          widget.contaLojista,
+                                          r'''$.shop.cnpj''',
+                                        ).toString());
+                                    setState(() {});
                                   },
                             text: 'Gerar QRCODE',
                             options: FFButtonOptions(

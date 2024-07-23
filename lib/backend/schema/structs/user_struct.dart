@@ -32,60 +32,70 @@ class UserStruct extends BaseStruct {
   String? _uid;
   String get uid => _uid ?? '';
   set uid(String? val) => _uid = val;
+
   bool hasUid() => _uid != null;
 
   // "display_name" field.
   String? _displayName;
   String get displayName => _displayName ?? '';
   set displayName(String? val) => _displayName = val;
+
   bool hasDisplayName() => _displayName != null;
 
   // "create_time" field.
   String? _createTime;
   String get createTime => _createTime ?? '';
   set createTime(String? val) => _createTime = val;
+
   bool hasCreateTime() => _createTime != null;
 
   // "wallet_id" field.
   String? _walletId;
   String get walletId => _walletId ?? '';
   set walletId(String? val) => _walletId = val;
+
   bool hasWalletId() => _walletId != null;
 
   // "accountId" field.
   String? _accountId;
   String get accountId => _accountId ?? '';
   set accountId(String? val) => _accountId = val;
+
   bool hasAccountId() => _accountId != null;
 
   // "idempresa" field.
   String? _idempresa;
   String get idempresa => _idempresa ?? '';
   set idempresa(String? val) => _idempresa = val;
+
   bool hasIdempresa() => _idempresa != null;
 
   // "empresaName" field.
   String? _empresaName;
   String get empresaName => _empresaName ?? '';
   set empresaName(String? val) => _empresaName = val;
+
   bool hasEmpresaName() => _empresaName != null;
 
   // "role" field.
   String? _role;
   String get role => _role ?? '';
   set role(String? val) => _role = val;
+
   bool hasRole() => _role != null;
 
   // "cidade" field.
   String? _cidade;
   String get cidade => _cidade ?? '';
   set cidade(String? val) => _cidade = val;
+
   bool hasCidade() => _cidade != null;
 
   // "senha" field.
   String? _senha;
   String get senha => _senha ?? '';
   set senha(String? val) => _senha = val;
+
   bool hasSenha() => _senha != null;
 
   static UserStruct fromMap(Map<String, dynamic> data) => UserStruct(

@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/pdfviewer_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -189,132 +190,290 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                                           cnpj: functions.newCustomFunction(
                                               _model.cnpjTextController.text),
                                         );
+
                                         if ((_model.apiResult121?.succeeded ??
                                             true)) {
-                                          // razao social
-                                          setState(() {
-                                            _model.razaoSocialTextController
-                                                ?.text = CnpjCall.nome(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            )!;
-                                          });
-                                          // fantasia
-                                          setState(() {
-                                            _model.nomeFantasiaTextController
-                                                ?.text = CnpjCall.fantasia(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            )!;
-                                          });
-                                          // cep
-                                          setState(() {
-                                            _model.cepTextController?.text =
-                                                CnpjCall.cep(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            )!;
-                                          });
-                                          // bairro
-                                          setState(() {
-                                            _model.bairroTextController?.text =
-                                                CnpjCall.bairro(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            )!;
-                                          });
-                                          // cidade
-                                          setState(() {
-                                            _model.cidadeTextController?.text =
-                                                CnpjCall.municipio(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            )!;
-                                          });
-                                          // complemento
-                                          setState(() {
-                                            _model.complementoTextController
-                                                ?.text = CnpjCall.complemento(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            )!;
-                                          });
-                                          // rua
-                                          setState(() {
-                                            _model.ruaTextController?.text =
-                                                getJsonField(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                              r'''$.logradouro''',
-                                            ).toString();
-                                          });
-                                          // telefone
-                                          setState(() {
-                                            _model.telefoneTextController
-                                                ?.text = CnpjCall.telefone(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            )!;
-                                          });
-                                          setState(() {
-                                            _model.estadoTextController?.text =
-                                                CnpjCall.uf(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            )!;
-                                          });
-                                          setState(() {
-                                            _model.pixTextController?.text =
-                                                CnpjCall.cnpj(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            )!;
-                                          });
-                                          setState(() {
-                                            _model.numeroCasaTextController
-                                                ?.text = CnpjCall.numeroCasa(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            )!;
-                                          });
-                                          _model.apiResulti2q =
-                                              await CeplatlngCall.call(
-                                            cep: CnpjCall.cep(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            ),
-                                            rua: getJsonField(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                              r'''$.logradouro''',
-                                            ).toString(),
-                                            numero: CnpjCall.numeroCasa(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            ),
-                                            cidade: CnpjCall.municipio(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            ),
-                                            estado: CnpjCall.uf(
-                                              (_model.apiResult121?.jsonBody ??
-                                                  ''),
-                                            ),
-                                          );
-                                          if ((_model.apiResulti2q?.succeeded ??
-                                              true)) {
-                                            setState(() {
-                                              _model.lat = CeplatlngCall.lat(
-                                                (_model.apiResulti2q
+                                          if (functions.listaCnaesValidar(
+                                              CnpjCall.codigoSecundario(
+                                                (_model.apiResult121
                                                         ?.jsonBody ??
                                                     ''),
-                                              )?.toString();
-                                              _model.lng = CeplatlngCall.lng(
-                                                (_model.apiResulti2q
+                                              )!
+                                                  .toList(),
+                                              CnpjCall.codigoPrincipal(
+                                                (_model.apiResult121
                                                         ?.jsonBody ??
                                                     ''),
-                                              )?.toString();
-                                            });
+                                              )!)) {
+                                            if (CnpjCall.situacao(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ) !=
+                                                'INATIVO') {
+                                              // razao social
+                                              setState(() {
+                                                _model.razaoSocialTextController
+                                                    ?.text = CnpjCall.nome(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                )!;
+                                                _model.razaoSocialTextController
+                                                        ?.selection =
+                                                    TextSelection.collapsed(
+                                                        offset: _model
+                                                            .razaoSocialTextController!
+                                                            .text
+                                                            .length);
+                                              });
+                                              // fantasia
+                                              setState(() {
+                                                _model
+                                                    .nomeFantasiaTextController
+                                                    ?.text = CnpjCall.fantasia(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                )!;
+                                                _model.nomeFantasiaTextController
+                                                        ?.selection =
+                                                    TextSelection.collapsed(
+                                                        offset: _model
+                                                            .nomeFantasiaTextController!
+                                                            .text
+                                                            .length);
+                                              });
+                                              // cep
+                                              setState(() {
+                                                _model.cepTextController?.text =
+                                                    CnpjCall.cep(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                )!;
+                                                _model.cepTextController
+                                                        ?.selection =
+                                                    TextSelection.collapsed(
+                                                        offset: _model
+                                                            .cepTextController!
+                                                            .text
+                                                            .length);
+                                              });
+                                              // bairro
+                                              setState(() {
+                                                _model.bairroTextController
+                                                    ?.text = CnpjCall.bairro(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                )!;
+                                                _model.bairroTextController
+                                                        ?.selection =
+                                                    TextSelection.collapsed(
+                                                        offset: _model
+                                                            .bairroTextController!
+                                                            .text
+                                                            .length);
+                                              });
+                                              // cidade
+                                              setState(() {
+                                                _model.cidadeTextController
+                                                    ?.text = CnpjCall.municipio(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                )!;
+                                                _model.cidadeTextController
+                                                        ?.selection =
+                                                    TextSelection.collapsed(
+                                                        offset: _model
+                                                            .cidadeTextController!
+                                                            .text
+                                                            .length);
+                                              });
+                                              // complemento
+                                              setState(() {
+                                                _model.complementoTextController
+                                                        ?.text =
+                                                    CnpjCall.complemento(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                )!;
+                                                _model.complementoTextController
+                                                        ?.selection =
+                                                    TextSelection.collapsed(
+                                                        offset: _model
+                                                            .complementoTextController!
+                                                            .text
+                                                            .length);
+                                              });
+                                              // rua
+                                              setState(() {
+                                                _model.ruaTextController?.text =
+                                                    getJsonField(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$.logradouro''',
+                                                ).toString();
+                                                _model.ruaTextController
+                                                        ?.selection =
+                                                    TextSelection.collapsed(
+                                                        offset: _model
+                                                            .ruaTextController!
+                                                            .text
+                                                            .length);
+                                              });
+                                              // telefone
+                                              setState(() {
+                                                _model.telefoneTextController
+                                                    ?.text = CnpjCall.telefone(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                )!;
+                                                _model.telefoneTextController
+                                                        ?.selection =
+                                                    TextSelection.collapsed(
+                                                        offset: _model
+                                                            .telefoneTextController!
+                                                            .text
+                                                            .length);
+                                              });
+                                              setState(() {
+                                                _model.estadoTextController
+                                                    ?.text = CnpjCall.uf(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                )!;
+                                                _model.estadoTextController
+                                                        ?.selection =
+                                                    TextSelection.collapsed(
+                                                        offset: _model
+                                                            .estadoTextController!
+                                                            .text
+                                                            .length);
+                                              });
+                                              setState(() {
+                                                _model.pixTextController?.text =
+                                                    CnpjCall.cnpj(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                )!;
+                                                _model.pixTextController
+                                                        ?.selection =
+                                                    TextSelection.collapsed(
+                                                        offset: _model
+                                                            .pixTextController!
+                                                            .text
+                                                            .length);
+                                              });
+                                              setState(() {
+                                                _model.numeroCasaTextController
+                                                        ?.text =
+                                                    CnpjCall.numeroCasa(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                )!;
+                                                _model.numeroCasaTextController
+                                                        ?.selection =
+                                                    TextSelection.collapsed(
+                                                        offset: _model
+                                                            .numeroCasaTextController!
+                                                            .text
+                                                            .length);
+                                              });
+                                              _model.apiResulti2q =
+                                                  await CeplatlngCall.call(
+                                                cep: CnpjCall.cep(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ),
+                                                rua: getJsonField(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$.logradouro''',
+                                                ).toString(),
+                                                numero: CnpjCall.numeroCasa(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ),
+                                                cidade: CnpjCall.municipio(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ),
+                                                estado: CnpjCall.uf(
+                                                  (_model.apiResult121
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ),
+                                              );
+
+                                              if ((_model.apiResulti2q
+                                                      ?.succeeded ??
+                                                  true)) {
+                                                _model.lat = CeplatlngCall.lat(
+                                                  (_model.apiResulti2q
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                )?.toString();
+                                                _model.lng = CeplatlngCall.lng(
+                                                  (_model.apiResulti2q
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                )?.toString();
+                                                setState(() {});
+                                              }
+                                            } else {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title:
+                                                        const Text('CNPJ Inativo!'),
+                                                    content: const Text(
+                                                        'CNPJ Inativo na Receita!'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: const Text('Ok'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            }
+                                          } else {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                      'Erro ao criar conta!'),
+                                                  content: const Text(
+                                                      'Infelizmente seu ramo do CNPJ não está na lista para disponibilização do benefício.'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: const Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
                                           }
                                         }
 
@@ -1228,7 +1387,7 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                                         TextCapitalization.words,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      labelText: 'Complemento*',
+                                      labelText: 'Complemento',
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
@@ -1313,7 +1472,7 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 16.0, 0.0, 0.0),
                                     child: Text(
-                                      'Informaçòes do Responsável',
+                                      'Informações do Responsável',
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
@@ -1891,6 +2050,13 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                                                             context)
                                                         .languageCode,
                                                   );
+                                                  _model.dataNascimentoTextController
+                                                          ?.selection =
+                                                      TextSelection.collapsed(
+                                                          offset: _model
+                                                              .dataNascimentoTextController!
+                                                              .text
+                                                              .length);
                                                 });
                                               },
                                               child: const Icon(
@@ -1908,7 +2074,7 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 16.0, 0.0, 0.0),
                                     child: Text(
-                                      'Informaçòes de login',
+                                      'Informações de login',
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
@@ -2011,11 +2177,10 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                                     controller: _model.logiTextController2,
                                     focusNode: _model.logiFocusNode2,
                                     autofocus: true,
-                                    textCapitalization:
-                                        TextCapitalization.words,
+                                    textCapitalization: TextCapitalization.none,
                                     obscureText: !_model.logiVisibility,
                                     decoration: InputDecoration(
-                                      labelText: 'Senha*',
+                                      labelText: 'senha',
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
@@ -2116,7 +2281,7 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 16.0, 0.0, 0.0),
                                     child: Text(
-                                      'Informaçòes de saque',
+                                      'Informações de saque',
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
@@ -2133,7 +2298,8 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                                         TextCapitalization.words,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      labelText: 'Chave PIX',
+                                      labelText:
+                                          'Chave PIX (CPF do Titular ou CNPJ)',
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
@@ -2283,6 +2449,117 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                                     validator: _model.senhaTransacaoValidator
                                         .asValidator(context),
                                   ),
+                                  Builder(
+                                    builder: (context) => FFButtonWidget(
+                                      onPressed: () async {
+                                        _model.termosBaixados = true;
+                                        setState(() {});
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  const AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: GestureDetector(
+                                                onTap: () => _model.unfocusNode
+                                                        .canRequestFocus
+                                                    ? FocusScope.of(context)
+                                                        .requestFocus(
+                                                            _model.unfocusNode)
+                                                    : FocusScope.of(context)
+                                                        .unfocus(),
+                                                child: const PdfviewerWidget(),
+                                              ),
+                                            );
+                                          },
+                                        ).then((value) => setState(() {}));
+                                      },
+                                      text: 'Ler Termos de Uso',
+                                      options: FFButtonOptions(
+                                        width: double.infinity,
+                                        height: 40.0,
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            24.0, 0.0, 24.0, 0.0),
+                                        iconPadding:
+                                            const EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: Colors.white,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Roboto',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              letterSpacing: 0.0,
+                                            ),
+                                        elevation: 3.0,
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                  ),
+                                  Theme(
+                                    data: ThemeData(
+                                      checkboxTheme: const CheckboxThemeData(
+                                        visualDensity: VisualDensity.compact,
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                      ),
+                                      unselectedWidgetColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                    ),
+                                    child: CheckboxListTile(
+                                      value: _model.checkboxListTileValue ??=
+                                          false,
+                                      onChanged: (_model.termosBaixados ==
+                                              false)
+                                          ? null
+                                          : (newValue) async {
+                                              setState(() =>
+                                                  _model.checkboxListTileValue =
+                                                      newValue!);
+                                            },
+                                      title: Text(
+                                        'Aceitar Termos de Uso!',
+                                        style: FlutterFlowTheme.of(context)
+                                            .titleLarge
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              fontSize: 16.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                      tileColor: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      activeColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      checkColor: (_model.termosBaixados ==
+                                              false)
+                                          ? null
+                                          : FlutterFlowTheme.of(context).info,
+                                      dense: false,
+                                      controlAffinity:
+                                          ListTileControlAffinity.leading,
+                                    ),
+                                  ),
                                 ]
                                     .divide(const SizedBox(height: 12.0))
                                     .addToEnd(const SizedBox(height: 32.0)),
@@ -2303,120 +2580,192 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
                     child: FFButtonWidget(
-                      onPressed: () async {
-                        if (_model.formKey.currentState == null ||
-                            !_model.formKey.currentState!.validate()) {
-                          return;
-                        }
-                        _model.apiResultm09 = await CadastroLojistaCall.call(
-                          email: _model.logiTextController1.text,
-                          senha: _model.logiTextController2.text,
-                          razaoSocial: _model.razaoSocialTextController.text,
-                          fantasyName: _model.nomeFantasiaTextController.text,
-                          cnpj: _model.cnpjTextController.text,
-                          phone: _model.telefoneTextController.text,
-                          rua: _model.ruaTextController.text,
-                          numero: _model.numeroCasaTextController.text,
-                          bairro: _model.bairroTextController.text,
-                          cep: _model.cepTextController.text,
-                          estado: _model.estadoTextController.text,
-                          cidade: _model.cidadeTextController.text,
-                          complemento: _model.complementoTextController.text,
-                          chavepix: _model.pixTextController.text,
-                          nomeDoDono: _model.nomeDonoTextController.text,
-                          emailDoDono: _model.emailDonoTextController.text,
-                          telefoneDoDono:
-                              _model.telefoneDonoTextController.text,
-                          cpf: _model.cpfDonoTextController.text,
-                          dataNascimento:
-                              functions.convertData(_model.datePicked),
-                          transactionPassword: _model.senhaTransacao!.text,
-                          lat: _model.lat,
-                          lng: _model.lng,
-                        );
-                        if ((_model.apiResultm09?.succeeded ?? true)) {
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                title: const Text('Conta criada com sucesso!'),
-                                content: const Text(
-                                    'Sua conta foi criada com sucesso, faça o login para entrar no aplicativo!'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: const Text('Ok'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                      onPressed: !_model.checkboxListTileValue!
+                          ? null
+                          : () async {
+                              if (_model.formKey.currentState == null ||
+                                  !_model.formKey.currentState!.validate()) {
+                                return;
+                              }
+                              if (functions.validaremail(
+                                  _model.logiTextController1.text)!) {
+                                if ((functions
+                                            .sizeString(functions
+                                                .removeNumericCaracteres(_model
+                                                    .pixTextController.text)!)
+                                            .toString() ==
+                                        '11') ||
+                                    (functions
+                                            .sizeString(functions
+                                                .removeNumericCaracteres(_model
+                                                    .pixTextController.text)!)
+                                            .toString() ==
+                                        '14')) {
+                                  _model.apiResultm09 =
+                                      await CadastroLojistaCall.call(
+                                    email: _model.logiTextController1.text,
+                                    senha: _model.logiTextController2.text,
+                                    razaoSocial:
+                                        _model.razaoSocialTextController.text,
+                                    fantasyName:
+                                        _model.nomeFantasiaTextController.text,
+                                    cnpj: _model.cnpjTextController.text,
+                                    phone: _model.telefoneTextController.text,
+                                    rua: _model.ruaTextController.text,
+                                    numero:
+                                        _model.numeroCasaTextController.text,
+                                    bairro: _model.bairroTextController.text,
+                                    cep: _model.cepTextController.text,
+                                    estado: _model.estadoTextController.text,
+                                    cidade: _model.cidadeTextController.text,
+                                    complemento:
+                                        _model.complementoTextController.text,
+                                    chavepix: _model.pixTextController.text,
+                                    nomeDoDono:
+                                        _model.nomeDonoTextController.text,
+                                    emailDoDono:
+                                        _model.emailDonoTextController.text,
+                                    telefoneDoDono:
+                                        _model.telefoneDonoTextController.text,
+                                    cpf: _model.cpfDonoTextController.text,
+                                    dataNascimento: functions
+                                        .convertData(_model.datePicked),
+                                    transactionPassword:
+                                        _model.senhaTransacao!.text,
+                                    lat: _model.lat,
+                                    lng: _model.lng,
+                                  );
 
-                          context.pushNamed('login');
-                        } else {
-                          if ((_model.apiResultm09?.statusCode ?? 200) == 409) {
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: const Text('Erro ao criar conta!'),
-                                  content: const Text(
-                                      'Infelizmente seu ramo do CNPJ não está na lista para disponibilização do benefício.'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: const Text('Ok'),
-                                    ),
-                                  ],
+                                  if ((_model.apiResultm09?.succeeded ??
+                                      true)) {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title:
+                                              const Text('Conta criada com sucesso!'),
+                                          content: const Text(
+                                              'Sua conta foi criada com sucesso, faça o login para entrar no aplicativo!'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: const Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+
+                                    context.pushNamed('login');
+                                  } else {
+                                    if ((_model.apiResultm09?.statusCode ??
+                                            200) ==
+                                        409) {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title: const Text('Erro ao criar conta!'),
+                                            content: const Text(
+                                                'Infelizmente seu ramo do CNPJ não está na lista para disponibilização do benefício.'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: const Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      if ((_model.apiResultm09?.statusCode ??
+                                              200) ==
+                                          404) {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return AlertDialog(
+                                              title:
+                                                  const Text('Erro ao criar conta!'),
+                                              content: const Text(
+                                                  'Email ou CNPJ já utilizado em nosso aplicativo.'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: const Text('Ok'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return AlertDialog(
+                                              title: const Text('Erro desconhecido!'),
+                                              content: const Text(
+                                                  'Por favor entre em contato com nosso suporte.'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: const Text('Ok'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+                                    }
+                                  }
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: const Text('Erro!'),
+                                        content: const Text(
+                                            'Informe uma chave pix válida!'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: const Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: const Text(
+                                          'Informe um E-mail de login válido!'),
+                                      content:
+                                          const Text('Exemplo: \"teste@teste.com\"'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: const Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 );
-                              },
-                            );
-                          } else {
-                            if ((_model.apiResultm09?.statusCode ?? 200) ==
-                                404) {
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: const Text('Erro ao criar conta!'),
-                                    content: const Text(
-                                        'Email ou CNPJ já utilizado em nosso aplicativo.'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: const Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            } else {
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: const Text('Erro desconhecido!'),
-                                    content: const Text(
-                                        'Por favor entre em contato com nosso suporte.'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: const Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }
-                          }
-                        }
+                              }
 
-                        setState(() {});
-                      },
+                              setState(() {});
+                            },
                       text: 'Confirmar',
                       options: FFButtonOptions(
                         width: double.infinity,
@@ -2438,6 +2787,8 @@ class _CadastroLojistaWidgetState extends State<CadastroLojistaWidget> {
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
+                        disabledColor: const Color(0xFFAEE3AE),
+                        disabledTextColor: Colors.white,
                       ),
                     ),
                   ),

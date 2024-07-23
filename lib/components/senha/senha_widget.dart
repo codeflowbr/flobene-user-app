@@ -17,11 +17,15 @@ class SenhaWidget extends StatefulWidget {
     required this.json,
     required this.name,
     required this.cpf,
+    required this.saldoVa,
+    required this.saldoVr,
   });
 
   final String? json;
   final String? name;
   final String? cpf;
+  final double? saldoVa;
+  final double? saldoVr;
 
   @override
   State<SenhaWidget> createState() => _SenhaWidgetState();
@@ -247,71 +251,128 @@ class _SenhaWidgetState extends State<SenhaWidget>
                                   alignment: const AlignmentDirectional(0.0, 0.05),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      _model.apiResultdcq =
-                                          await VendaLojistaCall.call(
-                                        jwt: currentAuthenticationToken,
-                                        senderID: functions
-                                            .stringToInt(currentUserData!.uid),
-                                        receiverId: functions.stringToInt(
-                                            functions.caughtJsonPath(
-                                                'sender', widget.json!)),
-                                        password:
-                                            _model.pinCodeController!.text,
-                                        value: functions.stringToDouble(
-                                            functions.caughtJsonPath(
-                                                'value', widget.json!)),
-                                        type: functions.caughtJsonPath(
-                                            'type', widget.json!),
-                                        date: functions.caughtJsonPath(
-                                            'date', widget.json!),
-                                      );
-                                      if ((_model.apiResultdcq?.succeeded ??
-                                          true)) {
-                                        context.pushNamed(
-                                          'Comprovante',
-                                          queryParameters: {
-                                            'valor': serializeParam(
-                                              functions.valor00(
-                                                  functions.caughtJsonPath(
-                                                      'value', widget.json!)),
-                                              ParamType.String,
-                                            ),
-                                            'destinatario': serializeParam(
+                                      if (() {
+                                        if ((functions.caughtJsonPath(
+                                                    'type', widget.json!) ==
+                                                'ALIMENTAÇÃO') &&
+                                            (widget.saldoVa! >=
+                                                functions.stringToDouble(
+                                                    functions.caughtJsonPath(
+                                                        'value',
+                                                        widget.json!)))) {
+                                          return true;
+                                        } else if ((functions.caughtJsonPath(
+                                                    'type', widget.json!) ==
+                                                'REFEIÇÃO') &&
+                                            (widget.saldoVr! >=
+                                                functions.stringToDouble(
+                                                    functions.caughtJsonPath(
+                                                        'value',
+                                                        widget.json!)))) {
+                                          return true;
+                                        } else {
+                                          return false;
+                                        }
+                                      }()) {
+                                        _model.apiResultdcq =
+                                            await VendaLojistaCall.call(
+                                          jwt: currentAuthenticationToken,
+                                          senderID: currentUserData?.uid,
+                                          receiverId: functions.caughtJsonPath(
+                                              'sender', widget.json!),
+                                          password:
+                                              _model.pinCodeController!.text,
+                                          value: functions.stringToDouble(
                                               functions.caughtJsonPath(
-                                                  'fantasy', widget.json!),
-                                              ParamType.String,
-                                            ),
-                                            'data': serializeParam(
-                                              functions.newCustomFunction2(
-                                                  functions.caughtJsonPath(
-                                                      'date', widget.json!)),
-                                              ParamType.String,
-                                            ),
-                                            'modelo': serializeParam(
-                                              functions.caughtJsonPath(
-                                                  'type', widget.json!),
-                                              ParamType.String,
-                                            ),
-                                            'idLoja': serializeParam(
-                                              functions.caughtJsonPath(
-                                                  'sender', widget.json!),
-                                              ParamType.String,
-                                            ),
-                                            'cnpj': serializeParam(
-                                              functions.caughtJsonPath(
-                                                  'cnpj', widget.json!),
-                                              ParamType.String,
-                                            ),
-                                            'sender': serializeParam(
-                                              widget.name,
-                                              ParamType.String,
-                                            ),
-                                            'cpf': serializeParam(
-                                              widget.cpf,
-                                              ParamType.String,
-                                            ),
-                                          }.withoutNulls,
+                                                  'value', widget.json!)),
+                                          type: functions.caughtJsonPath(
+                                              'type', widget.json!),
+                                          date: functions.caughtJsonPath(
+                                              'date', widget.json!),
                                         );
+
+                                        if ((_model.apiResultdcq?.succeeded ??
+                                            true)) {
+                                          context.pushNamed(
+                                            'Comprovante',
+                                            queryParameters: {
+                                              'valor': serializeParam(
+                                                functions.valor00(
+                                                    functions.caughtJsonPath(
+                                                        'value',
+                                                        widget.json!)),
+                                                ParamType.String,
+                                              ),
+                                              'destinatario': serializeParam(
+                                                functions.caughtJsonPath(
+                                                    'fantasy', widget.json!),
+                                                ParamType.String,
+                                              ),
+                                              'data': serializeParam(
+                                                functions.newCustomFunction2(
+                                                    functions.caughtJsonPath(
+                                                        'date', widget.json!)),
+                                                ParamType.String,
+                                              ),
+                                              'modelo': serializeParam(
+                                                functions.caughtJsonPath(
+                                                    'type', widget.json!),
+                                                ParamType.String,
+                                              ),
+                                              'idLoja': serializeParam(
+                                                functions.caughtJsonPath(
+                                                    'sender', widget.json!),
+                                                ParamType.String,
+                                              ),
+                                              'cnpj': serializeParam(
+                                                functions.caughtJsonPath(
+                                                    'cnpj', widget.json!),
+                                                ParamType.String,
+                                              ),
+                                              'sender': serializeParam(
+                                                widget.name,
+                                                ParamType.String,
+                                              ),
+                                              'cpf': serializeParam(
+                                                widget.cpf,
+                                                ParamType.String,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        } else {
+                                          var confirmDialogResponse =
+                                              await showDialog<bool>(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                            'Erro ao realizar pagamento'),
+                                                        content: const Text(
+                                                            'Senha incorreta'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    false),
+                                                            child: const Text(
+                                                                'Cancelar'),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    true),
+                                                            child: const Text(
+                                                                'Confirmar'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  ) ??
+                                                  false;
+                                        }
                                       } else {
                                         var confirmDialogResponse =
                                             await showDialog<bool>(
@@ -322,7 +383,7 @@ class _SenhaWidgetState extends State<SenhaWidget>
                                                       title: const Text(
                                                           'Erro ao realizar pagamento'),
                                                       content: const Text(
-                                                          'Senha incorreta'),
+                                                          'Saldo menor que o necessário!'),
                                                       actions: [
                                                         TextButton(
                                                           onPressed: () =>

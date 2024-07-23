@@ -115,9 +115,8 @@ class _SaqueWidgetState extends State<SaqueWidget> {
                                 0.0, 30.0, 0.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                setState(() {
-                                  _model.password = true;
-                                });
+                                _model.password = true;
+                                setState(() {});
                               },
                               text: 'Realizar Saque',
                               options: FFButtonOptions(
@@ -152,12 +151,18 @@ class _SaqueWidgetState extends State<SaqueWidget> {
               ),
             ),
             if (_model.password)
-              wrapWithModel(
-                model: _model.senhaSaqueModel,
-                updateCallback: () => setState(() {}),
-                child: SenhaSaqueWidget(
-                  json: widget.contaLojista!.toString(),
-                  valor: FFAppState().propPriceSaque,
+              Container(
+                decoration: const BoxDecoration(),
+                child: Visibility(
+                  visible: _model.password,
+                  child: wrapWithModel(
+                    model: _model.senhaSaqueModel,
+                    updateCallback: () => setState(() {}),
+                    child: SenhaSaqueWidget(
+                      json: widget.contaLojista!.toString(),
+                      valor: FFAppState().propPriceSaque,
+                    ),
+                  ),
                 ),
               ),
           ],

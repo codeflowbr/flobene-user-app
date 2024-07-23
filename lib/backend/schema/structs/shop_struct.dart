@@ -23,40 +23,50 @@ class ShopStruct extends BaseStruct {
   String? _razaoSocial;
   String get razaoSocial => _razaoSocial ?? '';
   set razaoSocial(String? val) => _razaoSocial = val;
+
   bool hasRazaoSocial() => _razaoSocial != null;
 
   // "fantasyName" field.
   String? _fantasyName;
   String get fantasyName => _fantasyName ?? '';
   set fantasyName(String? val) => _fantasyName = val;
+
   bool hasFantasyName() => _fantasyName != null;
 
   // "cnpj" field.
   String? _cnpj;
   String get cnpj => _cnpj ?? '';
   set cnpj(String? val) => _cnpj = val;
+
   bool hasCnpj() => _cnpj != null;
 
   // "phone" field.
   String? _phone;
   String get phone => _phone ?? '';
   set phone(String? val) => _phone = val;
+
   bool hasPhone() => _phone != null;
 
   // "beneficio" field.
   List<String>? _beneficio;
   List<String> get beneficio => _beneficio ?? const [];
   set beneficio(List<String>? val) => _beneficio = val;
-  void updateBeneficio(Function(List<String>) updateFn) =>
-      updateFn(_beneficio ??= []);
+
+  void updateBeneficio(Function(List<String>) updateFn) {
+    updateFn(_beneficio ??= []);
+  }
+
   bool hasBeneficio() => _beneficio != null;
 
   // "address" field.
   AddressStruct? _address;
   AddressStruct get address => _address ?? AddressStruct();
   set address(AddressStruct? val) => _address = val;
-  void updateAddress(Function(AddressStruct) updateFn) =>
-      updateFn(_address ??= AddressStruct());
+
+  void updateAddress(Function(AddressStruct) updateFn) {
+    updateFn(_address ??= AddressStruct());
+  }
+
   bool hasAddress() => _address != null;
 
   static ShopStruct fromMap(Map<String, dynamic> data) => ShopStruct(
@@ -101,7 +111,7 @@ class ShopStruct extends BaseStruct {
         'beneficio': serializeParam(
           _beneficio,
           ParamType.String,
-          true,
+          isList: true,
         ),
         'address': serializeParam(
           _address,

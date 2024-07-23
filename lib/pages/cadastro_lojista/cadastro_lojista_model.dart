@@ -11,6 +11,8 @@ class CadastroLojistaModel extends FlutterFlowModel<CadastroLojistaWidget> {
 
   String? lng;
 
+  bool termosBaixados = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -131,6 +133,8 @@ class CadastroLojistaModel extends FlutterFlowModel<CadastroLojistaWidget> {
   // State field(s) for senhaTransacao widget.
   TextEditingController? senhaTransacao;
   String? Function(BuildContext, String?)? senhaTransacaoValidator;
+  // State field(s) for CheckboxListTile widget.
+  bool? checkboxListTileValue;
   // Stores action output result for [Backend Call - API (cadastroLojista)] action in Button widget.
   ApiCallResponse? apiResultm09;
 

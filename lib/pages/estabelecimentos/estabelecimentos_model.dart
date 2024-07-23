@@ -23,6 +23,8 @@ class EstabelecimentosModel extends FlutterFlowModel<EstabelecimentosWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Custom Action - buscarCidadePorLocalizacaos] action in Estabelecimentos widget.
+  List<double>? retorno;
   // Stores action output result for [Backend Call - API (buscarLocais)] action in Estabelecimentos widget.
   ApiCallResponse? apiResultwmp;
   // State field(s) for DropDown widget.

@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:provider/provider.dart';
 import 'login_model.dart';
 export 'login_model.dart';
 
@@ -83,6 +84,8 @@ class _LoginWidgetState extends State<LoginWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -90,6 +93,33 @@ class _LoginWidgetState extends State<LoginWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        floatingActionButton: Visibility(
+          visible:
+              FFAppState().idCliente != '',
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 25.0, 40.0),
+            child: FloatingActionButton(
+              onPressed: () async {
+                context.pushNamed(
+                  'QrCodeCliente',
+                  queryParameters: {
+                    'contaLojista': serializeParam(
+                      FFAppState().idCliente,
+                      ParamType.String,
+                    ),
+                  }.withoutNulls,
+                );
+              },
+              backgroundColor: const Color(0xFF51CB51),
+              elevation: 8.0,
+              child: Icon(
+                Icons.qr_code,
+                color: FlutterFlowTheme.of(context).info,
+                size: 24.0,
+              ),
+            ),
+          ),
+        ),
         body: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -176,7 +206,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                       text: TextSpan(
                                         children: [
                                           TextSpan(
-                                            text: 'Bem vindo Ao ',
+                                            text: 'Bem-vindo ao ',
                                             style: FlutterFlowTheme.of(context)
                                                 .displaySmall
                                                 .override(
@@ -184,6 +214,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primary,
+                                                  fontSize: 30.0,
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
@@ -203,6 +234,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primary,
+                                              fontSize: 30.0,
                                               letterSpacing: 0.0,
                                             ),
                                       ),
@@ -453,6 +485,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                           password: _model
                                               .passwordTextController.text,
                                         );
+
                                         if ((_model.usuario?.succeeded ??
                                             true)) {
                                           GoRouter.of(context)
@@ -464,7 +497,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                             ),
                                             authUid: LoginCall.id(
                                               (_model.usuario?.jsonBody ?? ''),
-                                            )?.toString(),
+                                            ),
                                             userData: UserStruct(
                                               displayName: LoginCall.peopleName(
                                                 (_model.usuario?.jsonBody ??
@@ -478,7 +511,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                               uid: LoginCall.id(
                                                 (_model.usuario?.jsonBody ??
                                                     ''),
-                                              )?.toString(),
+                                              ),
                                               empresaName: getJsonField(
                                                 (_model.usuario?.jsonBody ??
                                                     ''),
@@ -507,7 +540,15 @@ class _LoginWidgetState extends State<LoginWidget>
                                               ) ==
                                               'CLIENTE') {
                                             context.goNamedAuth(
-                                                'HomePage', context.mounted);
+                                              'HomePage',
+                                              context.mounted,
+                                              queryParameters: {
+                                                'clientId': serializeParam(
+                                                  _model.idCliente,
+                                                  ParamType.String,
+                                                ),
+                                              }.withoutNulls,
+                                            );
                                           } else {
                                             if (LoginCall.role(
                                                   (_model.usuario?.jsonBody ??

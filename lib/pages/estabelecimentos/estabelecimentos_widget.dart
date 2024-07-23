@@ -35,20 +35,25 @@ class _EstabelecimentosWidgetState extends State<EstabelecimentosWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      currentUserLocationValue =
+          await getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0));
       await actions.lockOrientation();
+      _model.retorno = actions.buscarCidadePorLocalizacaos(
+        currentUserLocationValue,
+      );
       _model.apiResultwmp = await BuscarLocaisCall.call(
         jwt: currentAuthenticationToken,
         cidade: currentUserData?.cidade,
       );
-      setState(() {
-        _model.listaLocais = ((_model.apiResultwmp?.jsonBody ?? '')
-                .toList()
-                .map<MapStruct?>(MapStruct.maybeFromMap)
-                .toList() as Iterable<MapStruct?>)
-            .withoutNulls
-            .toList()
-            .cast<MapStruct>();
-      });
+
+      _model.listaLocais = ((_model.apiResultwmp?.jsonBody ?? '')
+              .toList()
+              .map<MapStruct?>(MapStruct.maybeFromMap)
+              .toList() as Iterable<MapStruct?>)
+          .withoutNulls
+          .toList()
+          .cast<MapStruct>();
+      setState(() {});
     });
 
     getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0), cached: true)
@@ -130,22 +135,21 @@ class _EstabelecimentosWidgetState extends State<EstabelecimentosWidget> {
                         jwt: currentAuthenticationToken,
                         cidade: currentUserData?.cidade,
                       );
+
                       if ((_model.apiResultehe?.succeeded ?? true)) {
-                        setState(() {
-                          _model.listaLocais = functions
-                              .procurarPorLocais(
-                                  _model.dropDownValue,
-                                  ((_model.apiResultehe?.jsonBody ?? '')
-                                          .toList()
-                                          .map<MapStruct?>(
-                                              MapStruct.maybeFromMap)
-                                          .toList() as Iterable<MapStruct?>)
-                                      .withoutNulls
-                                      .toList())!
-                              .toList()
-                              .cast<MapStruct>();
-                          _model.bottomsheet = false;
-                        });
+                        _model.listaLocais = functions
+                            .procurarPorLocais(
+                                _model.dropDownValue,
+                                ((_model.apiResultehe?.jsonBody ?? '')
+                                        .toList()
+                                        .map<MapStruct?>(MapStruct.maybeFromMap)
+                                        .toList() as Iterable<MapStruct?>)
+                                    .withoutNulls
+                                    .toList())!
+                            .toList()
+                            .cast<MapStruct>();
+                        _model.bottomsheet = false;
+                        setState(() {});
                       }
 
                       setState(() {});
@@ -199,9 +203,8 @@ class _EstabelecimentosWidgetState extends State<EstabelecimentosWidget> {
                                       marker.serialize(),
                                       marker,
                                       () async {
-                                        setState(() {
-                                          _model.bottomsheet = true;
-                                        });
+                                        _model.bottomsheet = true;
+                                        setState(() {});
                                       },
                                     ),
                                   )
@@ -623,9 +626,8 @@ class _EstabelecimentosWidgetState extends State<EstabelecimentosWidget> {
                                                     0.0, 32.0, 0.0, 13.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
-                                                setState(() {
-                                                  _model.bottomsheet = false;
-                                                });
+                                                _model.bottomsheet = false;
+                                                setState(() {});
                                               },
                                               text: 'Confirmar',
                                               options: FFButtonOptions(

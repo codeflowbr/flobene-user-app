@@ -10,7 +10,7 @@ class SenhaSaqueModel extends FlutterFlowModel<SenhaSaqueWidget> {
   TextEditingController? pinCodeController;
   String? Function(BuildContext, String?)? pinCodeControllerValidator;
   // Stores action output result for [Backend Call - API (withdraw)] action in Button widget.
-  ApiCallResponse? apiResultdcq;
+  ApiCallResponse? apiResultjbz;
 
   @override
   void initState(BuildContext context) {

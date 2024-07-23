@@ -84,8 +84,8 @@ String? newCustomFunction2(String? dataString) {
   return dataFormatada;
 }
 
-int? stringToInt(String numeroString) {
-  return int.parse(numeroString);
+String stringToInt(String numeroString) {
+  return numeroString;
 }
 
 double stringToDouble(String numeroString) {
@@ -166,4 +166,122 @@ List<MapStruct>? procurarPorLocais(
   }).toList();
 
   return filteredShops;
+}
+
+String? getDateNow() {
+  // Define o formato desejado para a data
+  DateFormat dateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+  // Obtém a data atual
+  DateTime now = DateTime.now();
+
+  // Formata a data
+  return dateFormat.format(now);
+}
+
+String? removeNumericCaracteres(String cpfOrCnpj) {
+  return cpfOrCnpj.replaceAll(RegExp(r'\D'), '');
+}
+
+int? sizeString(String texto) {
+  return texto.length;
+}
+
+bool? validaremail(String email) {
+  // validar se email é verdadeiro atraves da string
+// Regular expression to validate email format
+  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
+
+  // Check if email matches the regular expression
+  if (emailRegex.hasMatch(email)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool listaCnaesValidar(
+  List<String> listaCnaes,
+  String cnaePrincipal,
+) {
+  List<String> listaAlimentacao = [
+    "4639-7/01",
+    "4711-3/01",
+    "4711-3/02",
+    "1013-9/01",
+    "1091-1/00",
+    "46.91-5/00",
+    "4712-1/00",
+    "4639-7-01",
+    "4711-3-01",
+    "4711-3-02",
+    "1013-9-01",
+    "1091-1-00",
+    "46.91-5-00",
+    "47.12-1/00",
+    "46.39-7-01",
+    "47.11-3-01",
+    "47.11-3-02",
+    "10.13-9-01",
+    "10.91-1-00",
+    "46.91-5-00",
+    "47.12-1-00"
+  ];
+
+  // Lista de refeição
+  List<String> listaRefeicao = [
+    "5611-2/01",
+    "5620-1/03",
+    "5620-1/01",
+    "5611-2/03",
+    "4721-1/01",
+    "5611-2/03",
+    "5611-2/0",
+    "5611-2-01",
+    "5620-1-03",
+    "5620-1-01",
+    "5611-2-03",
+    "4721-1-01",
+    "5611-2-03",
+    "5611-2-0",
+    "56.11-2-01",
+    "56.20-1-03",
+    "56.20-1-01",
+    "56.11-2-03",
+    "47.21-1-01",
+    "56.11-2-03",
+    "56.11-2-0"
+  ];
+
+  List<String> listaCombinada = [...listaAlimentacao, ...listaRefeicao];
+
+// Verifique se o cnaePrincipal está presente na lista combinada
+  if (listaCombinada.contains(cnaePrincipal)) {
+    return true;
+  }
+
+  // Verifique se qualquer item na listaCnaes está presente na lista combinada
+  for (String cnae in listaCnaes) {
+    if (listaCombinada.contains(cnae)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+String createQrCodeCliente(String? clientId) {
+  DateTime now = DateTime.now();
+  String formattedDate = now.toIso8601String();
+
+  // Criar o objeto JSON
+  Map<String, dynamic> jsonMap = {
+    "sender": clientId,
+    "date": formattedDate,
+  };
+
+  // Converter o mapa para uma string JSON
+  String jsonString = jsonEncode(jsonMap);
+
+  return jsonString;
 }

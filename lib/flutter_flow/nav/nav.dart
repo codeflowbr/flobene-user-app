@@ -9,7 +9,6 @@ import '/auth/custom_auth/custom_auth_user_provider.dart';
 
 import '/index.dart';
 import '/main.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -88,7 +87,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/homePage',
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'HomePage')
-              : const HomePageWidget(),
+              : HomePageWidget(
+                  clientId: params.getParam(
+                    'clientId',
+                    ParamType.String,
+                  ),
+                ),
         ),
         FFRoute(
           name: 'Estabelecimentos',
@@ -112,6 +116,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             cpf: params.getParam(
               'cpf',
               ParamType.String,
+            ),
+            saldoVr: params.getParam(
+              'saldoVr',
+              ParamType.double,
+            ),
+            saldoVa: params.getParam(
+              'saldoVa',
+              ParamType.double,
             ),
           ),
         ),
@@ -268,6 +280,50 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 'empresa',
                 ParamType.String,
               ),
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'EditPasswordPagelojista',
+          path: '/editPasswordPagelojista',
+          builder: (context, params) => EditPasswordPagelojistaWidget(
+            valor: params.getParam(
+              'valor',
+              ParamType.String,
+            ),
+            empresa: params.getParam(
+              'empresa',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'TermosDeUsoLojista',
+          path: '/termosDeUsoLojista',
+          builder: (context, params) => const TermosDeUsoLojistaWidget(),
+        ),
+        FFRoute(
+          name: 'LerQrCode',
+          path: '/lerQrCode',
+          builder: (context, params) => LerQrCodeWidget(
+            linkPagamento: params.getParam(
+              'linkPagamento',
+              ParamType.String,
+            ),
+            listaTipoVale: params.getParam<String>(
+              'listaTipoVale',
+              ParamType.String,
+              isList: true,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'QrCodeCliente',
+          path: '/qrCodeCliente',
+          builder: (context, params) => QrCodeClienteWidget(
+            contaLojista: params.getParam(
+              'contaLojista',
+              ParamType.String,
             ),
           ),
         )
@@ -454,15 +510,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
-                    ),
+              ? Container(
+                  color: const Color(0xFF42124C),
+                  child: Image.asset(
+                    'assets/images/log_text.png',
+                    fit: BoxFit.cover,
                   ),
                 )
               : page;

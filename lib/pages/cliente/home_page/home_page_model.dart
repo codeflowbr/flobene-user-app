@@ -17,7 +17,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   bool passwordActive = false;
 
-  int? walletId;
+  String? walletId;
 
   String? cpf;
 
@@ -30,6 +30,10 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   void updateExtratoJsonAtIndex(int index, Function(dynamic) updateFn) =>
       extratoJson[index] = updateFn(extratoJson[index]);
 
+  double? aliedouble;
+
+  double? refdouble;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -40,7 +44,6 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ApiCallResponse? apiResult4oe;
   // State field(s) for Carousel widget.
   CarouselController? carouselController;
-
   int carouselCurrentIndex = 1;
 
   var linkPagamento = '';

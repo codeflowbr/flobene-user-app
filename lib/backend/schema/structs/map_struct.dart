@@ -19,26 +19,32 @@ class MapStruct extends BaseStruct {
   String? _title;
   String get title => _title ?? '';
   set title(String? val) => _title = val;
+
   bool hasTitle() => _title != null;
 
   // "latLng" field.
   String? _latLng;
   String get latLng => _latLng ?? '';
   set latLng(String? val) => _latLng = val;
+
   bool hasLatLng() => _latLng != null;
 
   // "description" field.
   String? _description;
   String get description => _description ?? '';
   set description(String? val) => _description = val;
+
   bool hasDescription() => _description != null;
 
   // "shop" field.
   ShopStruct? _shop;
   ShopStruct get shop => _shop ?? ShopStruct();
   set shop(ShopStruct? val) => _shop = val;
-  void updateShop(Function(ShopStruct) updateFn) =>
-      updateFn(_shop ??= ShopStruct());
+
+  void updateShop(Function(ShopStruct) updateFn) {
+    updateFn(_shop ??= ShopStruct());
+  }
+
   bool hasShop() => _shop != null;
 
   static MapStruct fromMap(Map<String, dynamic> data) => MapStruct(
